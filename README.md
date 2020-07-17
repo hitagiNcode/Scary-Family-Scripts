@@ -1,2 +1,3 @@
 # Scary-Family-Scripts
- This repo only contains beautiful scripts of my game
+ 
+ I very like indie game dev. so this game is going to be my first game as PuniPuni Games
