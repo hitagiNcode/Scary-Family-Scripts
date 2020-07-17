@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class RayCaster : MonoBehaviour
 {
     //This boolean is for making the AimCursor color back to white only once
-    private bool isColorRed;
+    private bool isClickAble;
+    private bool isClicked;
     private float rayLength = 2.5f;
 
     //---------------------------------------------------------
@@ -18,6 +19,7 @@ public class RayCaster : MonoBehaviour
 
 
     public Image AimCursor;
+    public Image MobileHand;
     
 
     
@@ -44,30 +46,42 @@ public class RayCaster : MonoBehaviour
             if (hit.collider)
             {
                 AimCursor.color = new Color32(240, 52, 52, 255);
-                isColorRed = true;
+                MobileHand.color = new Color32(255, 255, 255, 255);
+                isClickAble = true;
             }
 
-            if (hit.collider.CompareTag("Interactable"))
+            if (isClicked == true)
             {
-                
+                if (hit.collider.CompareTag("Interactable"))
+                {
+                    Debug.Log("objenin interacti yapıldi.");
+                    isClicked = false;
+
+                }
 
             }
-
 
         }
 
         else
         {   
             //Sets the color only once for better fps just checks bool everytime
-            if (isColorRed == true)
+            if (isClickAble == true)
             {
                 AimCursor.color = new Color32(255, 255, 255, 255);
-                isColorRed = false;
+                MobileHand.color = new Color32(255, 255, 255, 150);
+                isClickAble = false;
             }
 
 
         }
 
+    }
+
+
+    public void InteractButton()
+    {
+        isClicked = true;
     }
 
 
