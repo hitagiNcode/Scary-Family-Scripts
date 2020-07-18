@@ -11,27 +11,23 @@ public class RayCaster : MonoBehaviour
     private bool isClicked;
     private float rayLength = 2.5f;
 
+    //My int obj script but this will be a virtual function later
+    private InteractableObj currentObj;
     //---------------------------------------------------------
     //Player camera
     public Camera m_camera;
     //Raycast Layer
     [SerializeField] private LayerMask layerMaskInteract;
-
-
     public Image AimCursor;
     public Image MobileHand;
     
-
-    
     //---------------------------------------------------------
-
 
     // Start is called before the first frame update
     void Start()
     {
         
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -45,20 +41,18 @@ public class RayCaster : MonoBehaviour
         {
             if (hit.collider)
             {
-                AimCursor.color = new Color32(240, 52, 52, 255);
-                MobileHand.color = new Color32(255, 255, 255, 255);
-                isClickAble = true;
+                ChangeCursor();
             }
 
             if (isClicked == true)
             {
                 if (hit.collider.CompareTag("Interactable"))
                 {
-                    Debug.Log("objenin interacti yapıldi.");
+                    //Calls current obj script and interacts
+                    currentObj = hit.collider.gameObject.GetComponent<InteractableObj>();
+                    currentObj.Interact();
                     isClicked = false;
-
                 }
-
             }
 
         }
@@ -68,21 +62,30 @@ public class RayCaster : MonoBehaviour
             //Sets the color only once for better fps just checks bool everytime
             if (isClickAble == true)
             {
-                AimCursor.color = new Color32(255, 255, 255, 255);
-                MobileHand.color = new Color32(255, 255, 255, 150);
-                isClickAble = false;
+                ChangeCursorToNormal();
             }
-
 
         }
 
     }
 
+    private void ChangeCursorToNormal()
+    {
+        AimCursor.color = new Color32(255, 255, 255, 255);
+        MobileHand.color = new Color32(255, 255, 255, 150);
+        isClickAble = false;
+    }
+
+    private void ChangeCursor()
+    {
+        AimCursor.color = new Color32(240, 52, 52, 255);
+        MobileHand.color = new Color32(255, 255, 255, 255);
+        isClickAble = true;
+    }
 
     public void InteractButton()
     {
         isClicked = true;
     }
-
 
 }
