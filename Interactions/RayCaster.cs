@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class RayCaster : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class RayCaster : MonoBehaviour
 
     //My int obj script but this will be a virtual function later
     private InteractableObj currentObj;
+
+    private InteractableObj handObj;
     //---------------------------------------------------------
     //Player camera
     public Camera m_camera;
@@ -50,6 +53,16 @@ public class RayCaster : MonoBehaviour
                 {
                     //Calls current obj script and interacts
                     currentObj = hit.collider.gameObject.GetComponent<InteractableObj>();
+
+                    if (currentObj.isLiftable)
+                    {
+                        if (handObj != null)
+                        {
+                            handObj.Throw();
+                        }
+                        handObj = currentObj;
+                    }
+
                     currentObj.Interact();
                     isClicked = false;
                 }
@@ -86,6 +99,15 @@ public class RayCaster : MonoBehaviour
     public void InteractButton()
     {
         isClicked = true;
+    }
+
+    public void ThrowButton()
+    {
+        if (handObj != null)
+        {
+            handObj.Throw();
+        }
+        handObj = null;
     }
 
 }

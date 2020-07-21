@@ -45,7 +45,7 @@ public class LiftableObjects : InteractableObj
         itemSelf.transform.parent = null;
         itemRigid.isKinematic = false;
         itemRigid.useGravity = true;
-        itemRigid.AddForce(itemGuide.transform.forward * 100);
+        itemRigid.AddForce(itemGuide.transform.forward * 200);
     }
 
     public void GetObjScripts()

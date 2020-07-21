@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractableObj : MonoBehaviour
 {
-    
+    public bool isLiftable;
 
     public virtual void Interact()
     {
