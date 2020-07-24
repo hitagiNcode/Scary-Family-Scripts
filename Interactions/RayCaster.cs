@@ -7,6 +7,7 @@ using UnityEngine.XR;
 
 public class RayCaster : MonoBehaviour
 {
+    public static RayCaster instance;
     //This boolean is for making the AimCursor color back to white only once
     private bool isClickAble;
     private bool isClicked;
@@ -15,7 +16,7 @@ public class RayCaster : MonoBehaviour
     //My int obj script but this will be a virtual function later
     private InteractableObj currentObj;
 
-    private InteractableObj handObj;
+    public InteractableObj handObj;
     //---------------------------------------------------------
     //Player camera
     public Camera m_camera;
@@ -30,6 +31,17 @@ public class RayCaster : MonoBehaviour
     void Start()
     {
         
+        if (instance == null)
+        {
+            instance = this;
+            Debug.Log("raycaster instance olusturduk.");
+        }
+        else
+        {
+            Debug.Log("raycaster instance duplicates");
+        }
+        
+
     }
     // Update is called once per frame
     void Update()
@@ -108,6 +120,22 @@ public class RayCaster : MonoBehaviour
             handObj.Throw();
         }
         handObj = null;
+        
+    }
+
+    public bool isHoldingRightItem(int itemid)
+    {
+        if (handObj != null)
+        {
+            if (handObj.itemId == itemid)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
     }
 
 }

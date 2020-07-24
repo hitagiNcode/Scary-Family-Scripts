@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class LiftableObjects : InteractableObj
 {
-    public int itemId;
-
+    
     [HideInInspector]
     public GameObject itemSelf;
 
