@@ -26,4 +26,20 @@ public class DoubleDoor : InteractableObj
             _anim.SetBool("Open", true);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Npc"))
+        {
+            _anim.SetBool("Open", true);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Npc"))
+        {
+            _anim.SetBool("Open", false);
+        }
+    }
 }
