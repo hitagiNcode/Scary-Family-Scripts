@@ -7,11 +7,13 @@ using UnityEngine.XR;
 
 public class RayCaster : MonoBehaviour
 {
+    
     public static RayCaster instance;
     //This boolean is for making the AimCursor color back to white only once
     private bool isClickAble;
     private bool isClicked;
     private float rayLength = 2.5f;
+    
 
     //My int obj script but this will be a virtual function later
     private InteractableObj currentObj;
@@ -92,6 +94,8 @@ public class RayCaster : MonoBehaviour
 
         }
 
+
+        
     }
 
     private void ChangeCursorToNormal()
@@ -137,5 +141,6 @@ public class RayCaster : MonoBehaviour
         else
             return false;
     }
+
 
 }
