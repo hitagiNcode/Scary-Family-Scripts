@@ -7,7 +7,6 @@ using UnityEngine.XR;
 
 public class RayCaster : MonoBehaviour
 {
-    
     public static RayCaster instance;
     //This boolean is for making the AimCursor color back to white only once
     private bool isClickAble;
@@ -32,7 +31,6 @@ public class RayCaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         if (instance == null)
         {
             instance = this;
