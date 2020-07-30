@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class DoubleDoor : InteractableObj
+public class SingleDoor : InteractableObj
 {
     private Animator _anim;
     
 
     void Start()
     {
-        _anim = GetComponentInParent<Animator>();
+        _anim = GetComponent<Animator>();
 
     }
 
