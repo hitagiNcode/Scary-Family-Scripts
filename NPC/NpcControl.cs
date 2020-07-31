@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,12 +12,9 @@ public class NpcControl : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent agent { get; private set; }
     public ThirdPersonCharacter1  character { get; private set; }
 
-    public float baseSpeed;
-
-    //---- bu alan Destination managerdan gelecek
-    public Vector3 myDest;
-    // Oyuncu bir obje koyup attıgı zaman npc gidip onu alabilsin diye
-    public GameObject myDestInteractable;
+    //Privates
+    private float baseSpeed;
+    private bool pathReached;
     //----------------------------------
 
    
@@ -26,40 +24,62 @@ public class NpcControl : MonoBehaviour
         character = GetComponent<ThirdPersonCharacter1>();
 
         baseSpeed = agent.speed;
+        pathReached = false;
         agent.updateRotation = false;
         agent.updatePosition = true;
+
         
     }
 
     
     void Update()
     {
+        if (pathReached)
+        {
+            Debug.Log("run this code");
+            target = NpcDestManager.instance.getRandomDest().transform;
+            pathReached = false;
+        }
+
         if (target != null)
             agent.SetDestination(target.position);
-
         if (agent.remainingDistance > agent.stoppingDistance)
             character.Move(agent.desiredVelocity, false, false);
         else
             character.Move(Vector3.zero, false, false);
 
-        //This Decreases the speed of agent offmesh link
-        if (agent.isOnOffMeshLink)
-        {
-            agent.speed = baseSpeed / 3;
-        }
-        else
-        {
-            agent.speed = baseSpeed;
-        }
-        //----------------------------------------------
+        HandleOffmeshLinkSpeed();
 
+        IsReached();
     }
 
-    public void SetTarget(Transform target)
+    private void IsReached()
     {
-        this.target = target;
+        if (!agent.pathPending)
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                pathReached = true;
+            }
+        }
+
     }
 
+    private void HandleOffmeshLinkSpeed()
+    {
+        if (agent.isOnOffMeshLink)
+            agent.speed = baseSpeed / 3;
+        else
+            agent.speed = baseSpeed;
+    }
 
+    IEnumerator WaitAndGetRandomDest()
+    {
+        yield return new WaitForSeconds(2);
+        Debug.Log("new target setted");
+        target = NpcDestManager.instance.getRandomDest().transform;
+    }
+
+    
 
 }

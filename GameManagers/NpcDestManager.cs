@@ -6,7 +6,8 @@ public class NpcDestManager : MonoBehaviour
 {
     public static NpcDestManager instance;
     public GameObject[] randomDests;
-
+    
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -22,4 +23,10 @@ public class NpcDestManager : MonoBehaviour
     {
         
     }
+
+    public GameObject getRandomDest()
+    {
+        return randomDests[Random.Range(0, randomDests.Length)];
+    }
+    
 }
