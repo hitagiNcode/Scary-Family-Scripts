@@ -7,14 +7,16 @@ using UnityEngine.AI;
 [RequireComponent(typeof(UnityEngine.AI.NavMesh))]
 public class NpcControl : MonoBehaviour
 {
-
     public Transform target;
     public UnityEngine.AI.NavMeshAgent agent { get; private set; }
     public ThirdPersonCharacter1  character { get; private set; }
 
     //Privates
     private float baseSpeed;
-    private bool pathReached;
+    public bool pathReached;
+    public bool chasePlayer;
+    public float waitSeconds = 5f;
+    private GameObject player;
     //----------------------------------
 
    
@@ -22,47 +24,50 @@ public class NpcControl : MonoBehaviour
     {
         agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
         character = GetComponent<ThirdPersonCharacter1>();
+        player = GameObject.FindGameObjectWithTag("Player");
 
         baseSpeed = agent.speed;
         pathReached = false;
+        chasePlayer = false;
         agent.updateRotation = false;
         agent.updatePosition = true;
-
-        
+        StartCoroutine(WaitAndGetRandomDest(waitSeconds));
     }
 
     
     void Update()
     {
-        if (pathReached)
+        if (!pathReached && target != null && !chasePlayer)
         {
-            Debug.Log("run this code");
-            target = NpcDestManager.instance.getRandomDest().transform;
+            agent.SetDestination(target.position);
+        }
+        if (chasePlayer)
+        {
+            target = player.transform;
+            agent.SetDestination(target.position);
             pathReached = false;
         }
-
-        if (target != null)
+        /*if (target != null)
             agent.SetDestination(target.position);
         if (agent.remainingDistance > agent.stoppingDistance)
             character.Move(agent.desiredVelocity, false, false);
         else
-            character.Move(Vector3.zero, false, false);
-
+            character.Move(Vector3.zero, false, false);*/
+        AnimateAgent();
         HandleOffmeshLinkSpeed();
-
         IsReached();
     }
 
     private void IsReached()
     {
-        if (!agent.pathPending)
+        if (!agent.pathPending && target != null)
         {
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
-                pathReached = true;
+                    pathReached = true;
+                    Debug.Log("path reached is true");
             }
         }
-
     }
 
     private void HandleOffmeshLinkSpeed()
@@ -73,13 +78,31 @@ public class NpcControl : MonoBehaviour
             agent.speed = baseSpeed;
     }
 
-    IEnumerator WaitAndGetRandomDest()
+    private void AnimateAgent()
     {
-        yield return new WaitForSeconds(2);
-        Debug.Log("new target setted");
-        target = NpcDestManager.instance.getRandomDest().transform;
+        if (agent.remainingDistance > agent.stoppingDistance)
+            character.Move(agent.desiredVelocity, false, false);
     }
 
-    
+    IEnumerator WaitAndGetRandomDest(float waitsecs)
+    {
+        yield return new WaitForSeconds(waitsecs);
+        target = NpcDestManager.instance.getRandomDest().transform;
+        pathReached = false;
+        Debug.Log("agent is going to " + target.name);
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("player have been caught");
+            chasePlayer = false;
+        }
+
+    }
+
+
 
 }
