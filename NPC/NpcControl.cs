@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions.Must;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMesh))]
 public class NpcControl : MonoBehaviour
@@ -15,7 +16,8 @@ public class NpcControl : MonoBehaviour
     private float baseSpeed;
     public bool pathReached;
     public bool chasePlayer;
-    public float waitSeconds = 5f;
+    private bool isCoroutineStarted = false;
+    private float waitSeconds = 5f;
     private GameObject player;
     //----------------------------------
 
@@ -37,6 +39,11 @@ public class NpcControl : MonoBehaviour
     
     void Update()
     {
+        if (pathReached && target == null && !chasePlayer && !isCoroutineStarted)
+        {
+            StartCoroutine(WaitAndGetRandomDest(waitSeconds));
+        }
+        
         if (!pathReached && target != null && !chasePlayer)
         {
             agent.SetDestination(target.position);
@@ -53,9 +60,11 @@ public class NpcControl : MonoBehaviour
             character.Move(agent.desiredVelocity, false, false);
         else
             character.Move(Vector3.zero, false, false);*/
+        
         AnimateAgent();
         HandleOffmeshLinkSpeed();
         IsReached();
+
     }
 
     private void IsReached()
@@ -64,8 +73,10 @@ public class NpcControl : MonoBehaviour
         {
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
-                    pathReached = true;
-                    Debug.Log("path reached is true");
+                pathReached = true;
+                target = null;
+                
+                Debug.Log("path reached is true");
             }
         }
     }
@@ -80,15 +91,22 @@ public class NpcControl : MonoBehaviour
 
     private void AnimateAgent()
     {
-        if (agent.remainingDistance > agent.stoppingDistance)
+        if (agent.remainingDistance > agent.stoppingDistance && target != null)
             character.Move(agent.desiredVelocity, false, false);
+        else
+        {
+            character.StopWalkAnimation();
+        }
     }
 
     IEnumerator WaitAndGetRandomDest(float waitsecs)
     {
+        isCoroutineStarted = true;
+        pathReached = false;
         yield return new WaitForSeconds(waitsecs);
         target = NpcDestManager.instance.getRandomDest().transform;
-        pathReached = false;
+        
+        isCoroutineStarted = false;
         Debug.Log("agent is going to " + target.name);
         
     }

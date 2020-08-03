@@ -220,5 +220,12 @@ using UnityEngine;
 				m_Animator.applyRootMotion = false;
 			}
 		}
+
+		public void StopWalkAnimation()
+		{
+		m_Animator.SetFloat("Forward", 0, 0.1f, Time.deltaTime);
+		}
+
+
 	}
 
