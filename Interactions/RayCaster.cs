@@ -9,8 +9,6 @@ public class RayCaster : MonoBehaviour
 {
     public static RayCaster instance;
 
-    //handObj might be private
-    public InteractableObj handObj;
 
     //Player camera
     public Camera m_camera;
@@ -26,6 +24,8 @@ public class RayCaster : MonoBehaviour
     private bool isClicked;
     private float rayLength = 2.5f;
     private InteractableObj currentObj;
+    private InteractableObj handObj;
+    
     //----------------------------
 
     // Start is called before the first frame update
@@ -35,7 +35,7 @@ public class RayCaster : MonoBehaviour
         {
             instance = this;
         }
-        
+
         
 
     }
