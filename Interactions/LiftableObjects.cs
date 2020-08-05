@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LiftableObjects : InteractableObj
 {
@@ -10,6 +11,8 @@ public class LiftableObjects : InteractableObj
 
     [HideInInspector]
     public Rigidbody itemRigid;
+
+    public Image itemImg;
 
     //Show the hand guide of the player
     public GameObject itemGuide;

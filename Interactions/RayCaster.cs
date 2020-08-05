@@ -26,6 +26,7 @@ public class RayCaster : MonoBehaviour
     private InteractableObj currentObj;
     private InteractableObj handObj;
     
+    
     //----------------------------
 
     // Start is called before the first frame update
@@ -35,8 +36,6 @@ public class RayCaster : MonoBehaviour
         {
             instance = this;
         }
-
-        
 
     }
     // Update is called once per frame
