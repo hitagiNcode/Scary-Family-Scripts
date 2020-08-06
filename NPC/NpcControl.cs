@@ -9,19 +9,24 @@ using UnityEngine.Assertions.Must;
 public class NpcControl : MonoBehaviour
 {
     public Transform target;
-    public UnityEngine.AI.NavMeshAgent agent { get; private set; }
-    public ThirdPersonCharacter1  character { get; private set; }
+    public GameObject raycastFrom;
 
     //Privates
+    public bool chasePlayer = false;
+    public UnityEngine.AI.NavMeshAgent agent { get; private set; }
+    public ThirdPersonCharacter1 character { get; private set; }
     private float baseSpeed;
-    public bool pathReached;
-    public bool chasePlayer;
+    private bool pathReached;
     private bool isCoroutineStarted = false;
     private float waitSeconds = 5f;
     private GameObject player;
+    private bool hitPlayer = false;
+    private bool playerIsCaught = false;
+    private float traceDistance = 9f;
+
     //----------------------------------
 
-   
+
     void Start()
     {
         agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
@@ -30,7 +35,6 @@ public class NpcControl : MonoBehaviour
 
         baseSpeed = agent.speed;
         pathReached = false;
-        chasePlayer = false;
         agent.updateRotation = false;
         agent.updatePosition = true;
         StartCoroutine(WaitAndGetRandomDest(waitSeconds));
@@ -67,6 +71,12 @@ public class NpcControl : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        Raycasting();
+        ChasePlayer();
+    }
+
     private void IsReached()
     {
         if (!agent.pathPending && target != null)
@@ -95,6 +105,7 @@ public class NpcControl : MonoBehaviour
             character.Move(agent.desiredVelocity, false, false);
         else
         {
+            //I made this function to make the forward value zero
             character.StopWalkAnimation();
         }
     }
@@ -115,12 +126,68 @@ public class NpcControl : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("player have been caught");
+            //Debug.Log("player have been caught");
+            playerIsCaught = true;
             chasePlayer = false;
         }
 
     }
 
+    private void Raycasting()
+    {
+        RaycastHit hit;
+        Vector3 rayForward = raycastFrom.transform.TransformDirection(Vector3.forward);
+        Debug.DrawRay(raycastFrom.transform.position, rayForward, Color.red, traceDistance);
+        if (Physics.Raycast(raycastFrom.transform.position, rayForward, out hit, traceDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                hitPlayer = true;
+                print("Collided forward");
+            }
+        }
 
+        Vector3 rayLeft = raycastFrom.transform.TransformDirection(Vector3.left);
+        Debug.DrawRay(raycastFrom.transform.position, rayLeft, Color.red, traceDistance);
+        if (Physics.Raycast(raycastFrom.transform.position, rayLeft, out hit, traceDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                hitPlayer = true;
+                print("Collided left");
+            }
+        }
+
+        Vector3 rayRight = raycastFrom.transform.TransformDirection(Vector3.right);
+        Debug.DrawRay(raycastFrom.transform.position, rayRight, Color.red, traceDistance);
+        if (Physics.Raycast(raycastFrom.transform.position, rayRight, out hit, traceDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                hitPlayer = true;
+                print("Collided right");
+            }
+        }
+
+        Vector3 rayBack = raycastFrom.transform.TransformDirection(Vector3.back);
+        Debug.DrawRay(raycastFrom.transform.position, rayBack, Color.red, traceDistance);
+        if (Physics.Raycast(raycastFrom.transform.position, rayBack, out hit, traceDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                hitPlayer = true;
+                print("Collided back");
+            }
+        }
+    }
+
+    private void ChasePlayer()
+    {
+        if (hitPlayer && !playerIsCaught)
+        {
+            chasePlayer = true;
+        }
+        
+    }
 
 }

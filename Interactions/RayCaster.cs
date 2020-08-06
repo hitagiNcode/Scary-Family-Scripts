@@ -17,6 +17,7 @@ public class RayCaster : MonoBehaviour
     public Image AimCursor;
     public Image MobileHand;
     
+    
 
     //Privates
     //This boolean is for making the AimCursor color back to white only once
