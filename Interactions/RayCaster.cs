@@ -9,6 +9,8 @@ public class RayCaster : MonoBehaviour
 {
     public static RayCaster instance;
 
+    //Will change it to find Getcomp in child and Animator Might also Compare tag to player body
+    public Animator playerAnimator;
 
     //Player camera
     public Camera m_camera;

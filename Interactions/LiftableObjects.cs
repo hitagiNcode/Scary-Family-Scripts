@@ -35,6 +35,7 @@ public class LiftableObjects : InteractableObj
 
     private void PickUp()
     {
+        RayCaster.instance.playerAnimator.SetBool("HoldingItem", true);
         itemRigid.useGravity = false;
         itemRigid.isKinematic = true;
         itemSelf.transform.parent = itemGuide.transform;
@@ -44,16 +45,23 @@ public class LiftableObjects : InteractableObj
 
     void ThrowObj()
     {
-        itemSelf.transform.parent = null;
-        itemRigid.isKinematic = false;
-        itemRigid.useGravity = true;
-        itemRigid.AddForce(itemGuide.transform.forward * 200);
+        RayCaster.instance.playerAnimator.SetBool("HoldingItem", false);
+        StartCoroutine(WaitAndThrow(0.3f));
     }
 
     public void GetObjScripts()
     {
             itemSelf = this.gameObject;
             itemRigid = itemSelf.GetComponent<Rigidbody>();
+    }
+
+    IEnumerator WaitAndThrow (float waitsecs)
+    {
+        yield return new WaitForSeconds(waitsecs);
+        itemSelf.transform.parent = null;
+        itemRigid.isKinematic = false;
+        itemRigid.useGravity = true;
+        itemRigid.AddForce(itemGuide.transform.forward * 200);
     }
 
 }
