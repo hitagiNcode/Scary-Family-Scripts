@@ -5,11 +5,27 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
+    public int SelectedSceneValue = 1;
+    public static LevelLoader Instance { get; private set; }
+
     public GameObject loadingScreen;
     public Slider slider;
     public Text progressText;
 
-   public void LoadLevel(int sceneIndex)
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void LoadLevel(int sceneIndex)
     {
         StartCoroutine(LoadAsynchoronously(sceneIndex));
     }
