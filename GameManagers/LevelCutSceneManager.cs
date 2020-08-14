@@ -10,9 +10,9 @@ public class LevelCutSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        switch (LevelLoader.Instance.SelectedSceneValue)
+        switch (LevelLoader.Instance.selectedCutScene)
         {
-            case 1:
+            case LevelLoader.CutScene.DrinkCola:
                   CutSceneHolder.GetComponent<DrinkColaScene>().enabled = true;
                 break;
             default:

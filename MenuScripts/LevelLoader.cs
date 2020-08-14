@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
-    public int SelectedSceneValue = 1;
+    public enum CutScene { DrinkCola, NewspaperRush};
+    public CutScene selectedCutScene = CutScene.DrinkCola;
+
     public static LevelLoader Instance { get; private set; }
 
     public GameObject loadingScreen;
@@ -29,7 +31,6 @@ public class LevelLoader : MonoBehaviour
     {
         StartCoroutine(LoadAsynchoronously(sceneIndex));
     }
-
 
     IEnumerator LoadAsynchoronously(int sceneIndex)
     {
