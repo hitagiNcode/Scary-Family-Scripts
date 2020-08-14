@@ -21,5 +21,8 @@ public class MenuManager : MonoBehaviour
     }
 
 
-    
+    public void SocialButton(string SocialUrl)
+    {
+        Application.OpenURL(SocialUrl);
+    }
 }
