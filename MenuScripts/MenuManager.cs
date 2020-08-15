@@ -6,10 +6,13 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    public GameObject characterBoi;
+    public GameObject CharacterPanel;
     public Text VersionText;
     // Start is called before the first frame update
     void Start()
     {
+        CharacterPanelOFF();
         VersionText.text = "V" + Application.version;
 
     }
@@ -25,4 +28,16 @@ public class MenuManager : MonoBehaviour
     {
         Application.OpenURL(SocialUrl);
     }
+
+    public void CharacterPanelOn()
+    {
+        CharacterPanel.SetActive(true);
+        characterBoi.SetActive(true);
+    }
+    public void CharacterPanelOFF()
+    {
+        CharacterPanel.SetActive(false);
+        characterBoi.SetActive(false);
+    }
+
 }
