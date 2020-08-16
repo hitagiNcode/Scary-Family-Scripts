@@ -8,11 +8,14 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject characterBoi;
     public GameObject CharacterPanel;
+
+    public GameObject careerPanel;
     public Text VersionText;
     // Start is called before the first frame update
     void Start()
     {
         CharacterPanelOFF();
+        CareerPanelOff();
         VersionText.text = "V" + Application.version;
 
     }
@@ -38,6 +41,16 @@ public class MenuManager : MonoBehaviour
     {
         CharacterPanel.SetActive(false);
         characterBoi.SetActive(false);
+    }
+
+    public void CareerPanelOn()
+    {
+        careerPanel.SetActive(true);
+    }
+
+    public void CareerPanelOff()
+    {
+        careerPanel.SetActive(false);
     }
 
 }

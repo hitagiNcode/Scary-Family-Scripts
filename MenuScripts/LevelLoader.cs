@@ -1,11 +1,12 @@
 ﻿using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
-    public enum CutScene { DrinkCola, NewspaperRush};
+    public enum CutScene { NoScene, DrinkCola, NewspaperRush};
     public CutScene selectedCutScene = CutScene.DrinkCola;
 
     public static LevelLoader Instance { get; private set; }
@@ -27,9 +28,9 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int sceneIndex)
+    public void StartGameLevel()
     {
-        StartCoroutine(LoadAsynchoronously(sceneIndex));
+        StartCoroutine(LoadAsynchoronously(1));
     }
 
     IEnumerator LoadAsynchoronously(int sceneIndex)
@@ -44,5 +45,31 @@ public class LevelLoader : MonoBehaviour
             yield return null;
         }
     }
+
+
+
+    public void SelectSceneAndStartGame(int scenenumber)
+    {
+        switch (scenenumber)
+        {
+            case 0:
+                selectedCutScene = CutScene.NoScene;
+                StartGameLevel();
+                break;
+            case 1:
+                selectedCutScene = CutScene.DrinkCola;
+                StartGameLevel();
+                break;
+            case 2:
+                selectedCutScene = CutScene.NewspaperRush;
+                StartGameLevel();
+                break;
+            default:
+                
+                break;
+        }
+        
+    }
+
 
 }
