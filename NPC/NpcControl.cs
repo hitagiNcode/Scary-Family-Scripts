@@ -11,12 +11,17 @@ public class NpcControl : MonoBehaviour
     public Transform target;
     public GameObject raycastFrom;
 
+
+
+    private bool goScenePosition = false;
+    
+
     //Privates
     public bool chasePlayer = false;
     public UnityEngine.AI.NavMeshAgent agent { get; private set; }
     public ThirdPersonCharacter1 character { get; private set; }
     private float baseSpeed;
-    private bool pathReached;
+    public bool pathReached;
     private bool isCoroutineStarted = false;
     private float waitSeconds = 5f;
     private GameObject player;
@@ -43,6 +48,11 @@ public class NpcControl : MonoBehaviour
     
     void Update()
     {
+        if (target != null && !chasePlayer && goScenePosition)
+        {
+            agent.SetDestination(target.position);
+        }
+
         if (pathReached && target == null && !chasePlayer && !isCoroutineStarted)
         {
             StartCoroutine(WaitAndGetRandomDest(waitSeconds));
@@ -58,12 +68,7 @@ public class NpcControl : MonoBehaviour
             agent.SetDestination(target.position);
             pathReached = false;
         }
-        /*if (target != null)
-            agent.SetDestination(target.position);
-        if (agent.remainingDistance > agent.stoppingDistance)
-            character.Move(agent.desiredVelocity, false, false);
-        else
-            character.Move(Vector3.zero, false, false);*/
+        
         
         AnimateAgent();
         HandleOffmeshLinkSpeed();
@@ -126,7 +131,7 @@ public class NpcControl : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("player have been caught");
+            Debug.Log("player have been caught");
             playerIsCaught = true;
             chasePlayer = false;
         }
@@ -143,7 +148,7 @@ public class NpcControl : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 hitPlayer = true;
-                print("Collided forward");
+                //print("Collided forward");
             }
         }
 
@@ -154,7 +159,7 @@ public class NpcControl : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 hitPlayer = true;
-                print("Collided left");
+                //print("Collided left");
             }
         }
 
@@ -165,7 +170,7 @@ public class NpcControl : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 hitPlayer = true;
-                print("Collided right");
+                //print("Collided right");
             }
         }
 
@@ -176,7 +181,7 @@ public class NpcControl : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 hitPlayer = true;
-                print("Collided back");
+                //print("Collided back");
             }
         }
     }
@@ -187,6 +192,13 @@ public class NpcControl : MonoBehaviour
         {
             chasePlayer = true;
         }
+        
+    }
+
+    public void GoToScenePos(Transform posObj)
+    {
+        target = posObj;
+        goScenePosition = true;
         
     }
 
