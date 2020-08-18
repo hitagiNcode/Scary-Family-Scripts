@@ -16,6 +16,7 @@ public class DrinkColaScene : MonoBehaviour
 
     private bool holdCola = false;
     private Vector3 colaStartPos;
+    private Quaternion colastartRot;
     private NpcControl mainCharController;
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class DrinkColaScene : MonoBehaviour
         secondCutScene.SetActive(false);
         ActivateSceneObjs();
         colaStartPos = cola.transform.position;
+        colastartRot = cola.transform.rotation;
         mainCharController = sceneMainChar.GetComponent<NpcControl>();
     }
 
@@ -55,6 +57,7 @@ public class DrinkColaScene : MonoBehaviour
     {
         holdCola = false;
         cola.transform.position = colaStartPos;
+        cola.transform.rotation = colastartRot;
     }
 
     public void ActivateSceneObjs()
@@ -66,7 +69,6 @@ public class DrinkColaScene : MonoBehaviour
 
     public void DeActivateObjs()
     {
-        
         SceneCharacter.SetActive(false);
     }
 }
