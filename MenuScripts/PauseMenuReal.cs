@@ -9,6 +9,7 @@ public class PauseMenuReal : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject pauseMenuPanel;
     public GameObject optionsMenuUI;
 
     public GameObject PlayerUI;
@@ -16,23 +17,10 @@ public class PauseMenuReal : MonoBehaviour
 
 
 
-    private void Start()
-    {
-        pauseMenuUI.SetActive(false);
-        //StartCoroutine(SetDeactiveTest());
-        //StartCoroutine(SetActiveTest());
-    }
-
-    void Update()
-    {
-        
-
-        
-    }
-
     public void Resume ()
     {
         pauseMenuUI.SetActive(false);
+        pauseMenuPanel.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
         optionsMenuUI.SetActive(false);
@@ -41,6 +29,7 @@ public class PauseMenuReal : MonoBehaviour
     public void Pause ()
     {
         pauseMenuUI.SetActive(true);
+        pauseMenuPanel.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
 
@@ -71,16 +60,4 @@ public class PauseMenuReal : MonoBehaviour
     }
 
 
-    IEnumerator SetDeactiveTest()
-    {
-        yield return new WaitForSeconds(5f);
-        SetPlayerUIDeactive();
-    }
-
-
-    IEnumerator SetActiveTest()
-    {
-        yield return new WaitForSeconds(15f);
-        SetPlayerUIActive();
-    }
 }

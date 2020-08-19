@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DrinkColaScene : MonoBehaviour
 {
+    public GameObject vomitSystem;
     public GameObject sceneMainChar;
     public GameObject scenePos;
     public GameObject secondCutScene;
@@ -22,6 +23,7 @@ public class DrinkColaScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        vomitSystem.SetActive(false);
         secondCutScene.SetActive(false);
         ActivateSceneObjs();
         colaStartPos = cola.transform.position;
@@ -71,4 +73,19 @@ public class DrinkColaScene : MonoBehaviour
     {
         SceneCharacter.SetActive(false);
     }
+
+    public void DropCola()
+    {
+        holdCola = false;
+    }
+
+    public void TurnOnVomit()
+    {
+        vomitSystem.SetActive(true);
+    }
+    public void TurnOFFVomit()
+    {
+        vomitSystem.SetActive(false);
+    }
+
 }
