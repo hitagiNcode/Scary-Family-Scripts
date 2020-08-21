@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class PauseMenuReal : MonoBehaviour
 {
-    // Use this to send audio manager command to play pause menu music
-    public static bool GameIsPaused = false;
+   
 
     public GameObject pauseMenuUI;
     public GameObject pauseMenuPanel;
@@ -22,7 +21,7 @@ public class PauseMenuReal : MonoBehaviour
         pauseMenuUI.SetActive(false);
         pauseMenuPanel.SetActive(false);
         Time.timeScale = 1f;
-        GameIsPaused = false;
+        
         optionsMenuUI.SetActive(false);
     }
 
@@ -31,7 +30,7 @@ public class PauseMenuReal : MonoBehaviour
         pauseMenuUI.SetActive(true);
         pauseMenuPanel.SetActive(true);
         Time.timeScale = 0f;
-        GameIsPaused = true;
+        
 
     }
 

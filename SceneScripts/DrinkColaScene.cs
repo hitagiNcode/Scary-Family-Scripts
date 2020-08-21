@@ -88,4 +88,10 @@ public class DrinkColaScene : MonoBehaviour
         vomitSystem.SetActive(false);
     }
 
+
+    public void completeColaLevel()
+    {
+        LevelCompletePanel.Instance.completeLevel();
+    }
+
 }
