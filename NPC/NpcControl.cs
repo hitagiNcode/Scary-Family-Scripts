@@ -10,24 +10,22 @@ public class NpcControl : MonoBehaviour
 {
     public Transform target;
     public GameObject raycastFrom;
+    public bool pathReached;
 
-
-
-    private bool goScenePosition = false;
-    
 
     //Privates
     public bool chasePlayer = false;
     public UnityEngine.AI.NavMeshAgent agent { get; private set; }
     public ThirdPersonCharacter1 character { get; private set; }
     private float baseSpeed;
-    public bool pathReached;
+    
     private bool isCoroutineStarted = false;
     private float waitSeconds = 5f;
     private GameObject player;
-    private bool hitPlayer = false;
     private bool playerIsCaught = false;
-    private float traceDistance = 9f;
+    private bool goScenePosition = false;
+    private float traceDistance = 13f;
+    private int unChaseDistance = 18;
 
     //----------------------------------
 
@@ -42,7 +40,7 @@ public class NpcControl : MonoBehaviour
         pathReached = false;
         agent.updateRotation = false;
         agent.updatePosition = true;
-        StartCoroutine(WaitAndGetRandomDest(waitSeconds));
+        
     }
 
     
@@ -57,29 +55,45 @@ public class NpcControl : MonoBehaviour
         {
             StartCoroutine(WaitAndGetRandomDest(waitSeconds));
         }
+        if (!pathReached &&target==null &&!chasePlayer &&!isCoroutineStarted &&!goScenePosition)
+        {
+            StartCoroutine(WaitAndGetRandomDest(waitSeconds));
+        }
         
         if (!pathReached && target != null && !chasePlayer)
         {
             agent.SetDestination(target.position);
         }
-        if (chasePlayer)
-        {
-            target = player.transform;
-            agent.SetDestination(target.position);
-            pathReached = false;
-        }
-        
+    
         
         AnimateAgent();
         HandleOffmeshLinkSpeed();
         IsReached();
-
+        
     }
 
     private void FixedUpdate()
     {
         Raycasting();
         ChasePlayer();
+        UnchasePlayer();
+    }
+
+    private void UnchasePlayer()
+    {
+        float distanceToPlayer = Vector3.Distance(player.transform.position, raycastFrom.transform.position);
+
+        if (chasePlayer)
+        {
+            if (distanceToPlayer > unChaseDistance)
+            {
+                target = null;
+                agent.SetDestination(raycastFrom.transform.position);
+                Debug.Log("Unchasing playerr");
+                chasePlayer = false;
+            }
+        }
+        
     }
 
     private void IsReached()
@@ -90,7 +104,6 @@ public class NpcControl : MonoBehaviour
             {
                 pathReached = true;
                 target = null;
-                
                 Debug.Log("path reached is true");
             }
         }
@@ -141,58 +154,60 @@ public class NpcControl : MonoBehaviour
     private void Raycasting()
     {
         RaycastHit hit;
-        Vector3 rayForward = raycastFrom.transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(raycastFrom.transform.position, rayForward, Color.red, traceDistance);
-        if (Physics.Raycast(raycastFrom.transform.position, rayForward, out hit, traceDistance))
+        Vector3 rayForward = raycastFrom.transform.TransformDirection(Vector3.forward) ;
+        Debug.DrawRay(raycastFrom.transform.position, rayForward * traceDistance, Color.red);
+        if (Physics.Raycast(raycastFrom.transform.position, rayForward, out hit,traceDistance))
         {
             if (hit.collider.CompareTag("Player"))
             {
-                hitPlayer = true;
-                //print("Collided forward");
+                chasePlayer = true;
+                
             }
         }
 
-        Vector3 rayLeft = raycastFrom.transform.TransformDirection(Vector3.left);
-        Debug.DrawRay(raycastFrom.transform.position, rayLeft, Color.red, traceDistance);
-        if (Physics.Raycast(raycastFrom.transform.position, rayLeft, out hit, traceDistance))
+        Vector3 rayLeft = raycastFrom.transform.TransformDirection(Vector3.left) ;
+        Debug.DrawRay(raycastFrom.transform.position, rayLeft * traceDistance, Color.green);
+        if (Physics.Raycast(raycastFrom.transform.position, rayLeft, out hit,traceDistance))
         {
             if (hit.collider.CompareTag("Player"))
             {
-                hitPlayer = true;
-                //print("Collided left");
+                chasePlayer = true;
+                
             }
         }
 
         Vector3 rayRight = raycastFrom.transform.TransformDirection(Vector3.right);
-        Debug.DrawRay(raycastFrom.transform.position, rayRight, Color.red, traceDistance);
-        if (Physics.Raycast(raycastFrom.transform.position, rayRight, out hit, traceDistance))
+        Debug.DrawRay(raycastFrom.transform.position, rayRight *traceDistance, Color.blue);
+        if (Physics.Raycast(raycastFrom.transform.position, rayRight, out hit,traceDistance))
         {
             if (hit.collider.CompareTag("Player"))
             {
-                hitPlayer = true;
-                //print("Collided right");
+                chasePlayer = true;
+                
             }
         }
 
         Vector3 rayBack = raycastFrom.transform.TransformDirection(Vector3.back);
-        Debug.DrawRay(raycastFrom.transform.position, rayBack, Color.red, traceDistance);
-        if (Physics.Raycast(raycastFrom.transform.position, rayBack, out hit, traceDistance))
+        Debug.DrawRay(raycastFrom.transform.position, rayBack * traceDistance, Color.yellow);
+        if (Physics.Raycast(raycastFrom.transform.position, rayBack, out hit,traceDistance))
         {
             if (hit.collider.CompareTag("Player"))
             {
-                hitPlayer = true;
-                //print("Collided back");
+                chasePlayer = true;
+                
             }
         }
     }
 
     private void ChasePlayer()
     {
-        if (hitPlayer && !playerIsCaught)
+        if (chasePlayer && !playerIsCaught)
         {
-            chasePlayer = true;
+            target = player.transform;
+            agent.SetDestination(target.position);
+            pathReached = false;
+            
         }
-        
     }
 
     public void GoToScenePos(Transform posObj)

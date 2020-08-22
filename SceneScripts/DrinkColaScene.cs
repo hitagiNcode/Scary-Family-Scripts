@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DrinkColaScene : MonoBehaviour
 {
+    public Vector3 agentStartPoint;
     public GameObject vomitSystem;
     public GameObject sceneMainChar;
     public GameObject scenePos;
@@ -13,8 +14,9 @@ public class DrinkColaScene : MonoBehaviour
     public GameObject SceneCharacter;
     public Transform oldManHand;
 
-    public bool drinkIsReady = false;
 
+    [HideInInspector]
+    public bool drinkIsReady = false;
     private bool holdCola = false;
     private Vector3 colaStartPos;
     private Quaternion colastartRot;
@@ -25,6 +27,7 @@ public class DrinkColaScene : MonoBehaviour
     {
         vomitSystem.SetActive(false);
         secondCutScene.SetActive(false);
+        sceneMainChar.SetActive(false);
         ActivateSceneObjs();
         colaStartPos = cola.transform.position;
         colastartRot = cola.transform.rotation;
@@ -72,6 +75,8 @@ public class DrinkColaScene : MonoBehaviour
     public void DeActivateObjs()
     {
         SceneCharacter.SetActive(false);
+        sceneMainChar.transform.position = agentStartPoint;
+        sceneMainChar.SetActive(true);
     }
 
     public void DropCola()
