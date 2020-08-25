@@ -6,6 +6,7 @@ public class SingleDoor : InteractableObj
     private AudioSource m_AudSource;
     public AudioClip openClip;
     public AudioClip closeClip;
+    public bool isFrontGates = false;
 
     void Start()
     {
@@ -33,24 +34,34 @@ public class SingleDoor : InteractableObj
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Npc"))
+        if (!isFrontGates)
         {
-            _anim.SetBool("Open", true);
-            m_AudSource.PlayOneShot(openClip, 0.5f);
+            if (other.gameObject.CompareTag("Npc"))
+            {
+                _anim.SetBool("Open", true);
+                m_AudSource.PlayOneShot(openClip, 0.5f);
+            }
         }
-
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Npc"))
+        if (!isFrontGates)
         {
-            _anim.SetBool("Open", false);
-            m_AudSource.PlayOneShot(closeClip, 0.5f);
+            if (other.gameObject.CompareTag("Npc"))
+            {
+                _anim.SetBool("Open", false);
+                m_AudSource.PlayOneShot(closeClip, 0.5f);
+            }
         }
     }
 
-
+    public void CloseGates()
+    {
+        _anim.SetBool("Open", false);
+        m_AudSource.PlayOneShot(closeClip, 0.5f);
+    }
 }
 
 

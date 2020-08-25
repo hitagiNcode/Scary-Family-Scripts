@@ -31,18 +31,18 @@ public class BackgroundVolumeScript : MonoBehaviour
     IEnumerator ChangeVolumeUp()
     {
         isUpstarted = true;
-        Debug.Log("volume will change in 40 seconds");
+        
         yield return new WaitForSeconds(40f);
-        Debug.Log("volume is changed up");
+        
         m_audsource.volume = 0.25f;
         isUpstarted = false;
     }
     IEnumerator ChangeVolumeDown()
     {
         isDownStarted = true;
-        Debug.Log("volume will change in 30 secs");
+        
         yield return new WaitForSeconds(30f);
-        Debug.Log("volme is down");
+        
         m_audsource.volume = 0.1f;
         isDownStarted = false;
     }
