@@ -157,6 +157,7 @@ public class NpcControl : MonoBehaviour
         {
             Debug.Log("player have been caught");
             playerIsCaught = true;
+            StopChaseAudio();
             chasePlayer = false;
         }
         if (other.gameObject.CompareTag("HouseBorder"))

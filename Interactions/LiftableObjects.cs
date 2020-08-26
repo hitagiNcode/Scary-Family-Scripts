@@ -12,6 +12,7 @@ public class LiftableObjects : InteractableObj
     [HideInInspector]
     public Rigidbody itemRigid;
 
+
     public Image itemImg;
 
     //Show the hand guide of the player
@@ -24,7 +25,11 @@ public class LiftableObjects : InteractableObj
     public override void Interact()
     {
         base.Interact();
-        PickUp();
+        if (isLiftable)
+        {
+            PickUp();
+        }
+        
     }
 
     public override void Throw()
@@ -41,11 +46,13 @@ public class LiftableObjects : InteractableObj
         itemSelf.transform.parent = itemGuide.transform;
         itemSelf.transform.localPosition = handPosition;
         itemSelf.transform.localEulerAngles = handRotation;
+        itemSelf.GetComponent<BoxCollider>().enabled = false;
     }
 
     void ThrowObj()
     {
         RayCaster.instance.playerAnimator.SetBool("HoldingItem", false);
+        itemSelf.GetComponent<BoxCollider>().enabled = true;
         StartCoroutine(WaitAndThrow(0.3f));
     }
 
@@ -53,6 +60,7 @@ public class LiftableObjects : InteractableObj
     {
             itemSelf = this.gameObject;
             itemRigid = itemSelf.GetComponent<Rigidbody>();
+            
     }
 
     IEnumerator WaitAndThrow (float waitsecs)

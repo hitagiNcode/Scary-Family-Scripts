@@ -6,6 +6,7 @@ public class InteractableObj : MonoBehaviour
 {
     public int itemId;
     public bool isLiftable;
+    public GameObject gameObjSelf;
 
     public virtual void Interact()
     {
@@ -19,6 +20,9 @@ public class InteractableObj : MonoBehaviour
 
     }
 
-   
+   public GameObject GetGameObj()
+    {
+        return this.gameObject;
+    }
 
 }

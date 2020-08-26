@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.XR;
 
@@ -29,7 +30,6 @@ public class RayCaster : MonoBehaviour
     private InteractableObj currentObj;
     private InteractableObj handObj;
     
-    
     //----------------------------
 
     // Start is called before the first frame update
@@ -48,14 +48,22 @@ public class RayCaster : MonoBehaviour
         RaycastHit hit;
         Vector3 fwd = m_camera.transform.TransformDirection(Vector3.forward);
 
-        Debug.DrawRay(m_camera.transform.position, m_camera.transform.forward, Color.red, rayLength);
+        Debug.DrawRay(m_camera.transform.position, m_camera.transform.forward*rayLength, Color.red);
 
         if (Physics.Raycast(m_camera.transform.position, fwd, out hit, rayLength, layerMaskInteract.value))
         {
-            if (hit.collider)
-            {
+            if (hit.collider.CompareTag("Interactable"))
+            {   
                 ChangeCursor();
             }
+            else
+            {
+                if (isClickAble)
+                {
+                    ChangeCursorToNormal();
+                }
+            }
+            
 
             if (isClicked == true)
             {
@@ -79,19 +87,14 @@ public class RayCaster : MonoBehaviour
             }
 
         }
-
         else
-        {   
-            //Sets the color only once for better fps just checks bool everytime
-            if (isClickAble == true)
+        {
+            if (isClickAble)
             {
                 ChangeCursorToNormal();
             }
 
         }
-
-
-        
     }
 
     private void ChangeCursorToNormal()
@@ -139,5 +142,9 @@ public class RayCaster : MonoBehaviour
     }
 
 
+    public GameObject GetHandObject() 
+    {
 
+        return handObj.GetGameObj();
+    }
 }
