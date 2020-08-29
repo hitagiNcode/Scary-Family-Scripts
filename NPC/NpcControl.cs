@@ -24,7 +24,8 @@ public class NpcControl : MonoBehaviour
     public ThirdPersonCharacter1 character { get; private set; }
     private float baseSpeed;
     
-    private bool isCoroutineStarted = false;
+    
+    public bool isCoroutineStarted = false;
     private float waitSeconds = 5f;
     private GameObject player;
     private bool playerIsCaught = false;

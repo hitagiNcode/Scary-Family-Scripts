@@ -15,12 +15,32 @@ public class LevelCompletePanel : MonoBehaviour
             Instance = this;
         }
     }
-
+    private void Start()
+    {
+        pauseMenuUI.SetActive(false);
+        levelUpPanel.SetActive(false);
+    }
 
     public void completeLevel()
     {
         Time.timeScale = 0f;
         pauseMenuUI.SetActive(true);
         levelUpPanel.SetActive(true);
+    }
+
+
+    public void ButtonLoadMainScene()
+    {
+        LevelLoader.Instance.LoadMainMenu();
+    }
+
+    public void ButtonLoadNextLevel()
+    {
+        LevelLoader.Instance.LoadAndStartNextLevel();
+    }
+
+    public void ButtonReplayLevel()
+    {
+        LevelLoader.Instance.ReplaySameLevel();
     }
 }

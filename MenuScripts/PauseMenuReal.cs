@@ -14,6 +14,11 @@ public class PauseMenuReal : MonoBehaviour
     public GameObject PlayerUI;
     public Image[] imagesUI;
 
+    private void Start()
+    {
+        pauseMenuUI.SetActive(false);
+        pauseMenuPanel.SetActive(false);
+    }
 
 
     public void Resume ()
@@ -58,5 +63,8 @@ public class PauseMenuReal : MonoBehaviour
         }
     }
 
-
+    public void ButtonLoadMainMenu()
+    {
+        LevelLoader.Instance.LoadMainMenu();
+    }
 }

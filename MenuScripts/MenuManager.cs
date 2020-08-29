@@ -53,4 +53,9 @@ public class MenuManager : MonoBehaviour
         careerPanel.SetActive(false);
     }
 
+    public void LoadSelectedLevel(int levelValue)
+    {
+        LevelLoader.Instance.SelectSceneAndStartGame(levelValue);
+    }
+
 }

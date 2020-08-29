@@ -32,6 +32,7 @@ public class DrinkColaScene : MonoBehaviour
         colaStartPos = cola.transform.position;
         colastartRot = cola.transform.rotation;
         mainCharController = sceneMainChar.GetComponent<NpcControl>();
+        mainCharController.isCoroutineStarted = false;
     }
 
     // Update is called once per frame

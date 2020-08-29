@@ -11,9 +11,15 @@ public class LevelLoader : MonoBehaviour
 
     public static LevelLoader Instance { get; private set; }
 
-    public GameObject loadingScreen;
+
+    //--------------- Find at start----------
+    public GameObject loadingScreenHolder;
+    public GameObject loadingPanel;
     public Slider slider;
     public Text progressText;
+    //---------------------------------------
+
+    private int currentSceneNumber = 0;
 
     private void Awake()
     {
@@ -28,15 +34,35 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
+
+    private void Update()
+    {
+        if (loadingScreenHolder == null)
+        {
+            FindLoadingScreenHolder();
+        }
+    }
+
+    private void FindLoadingScreenHolder()
+    {
+        loadingScreenHolder = GameObject.FindGameObjectWithTag("LoadingPanel");
+        loadingPanel = loadingScreenHolder.transform.Find("LoadingPanel").gameObject;
+        slider = loadingPanel.GetComponentInChildren<Slider>();
+        progressText = loadingPanel.GetComponentInChildren<Text>();
+
+        loadingPanel.SetActive(false);
+    }
+
     public void StartGameLevel()
     {
         StartCoroutine(LoadAsynchoronously(1));
+        Time.timeScale = 1f;
     }
 
     IEnumerator LoadAsynchoronously(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        loadingScreen.SetActive(true);
+        loadingPanel.SetActive(true);
         while (operation.isDone == false)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
@@ -50,11 +76,13 @@ public class LevelLoader : MonoBehaviour
 
     public void SelectSceneAndStartGame(int scenenumber)
     {
+        currentSceneNumber = scenenumber;
         switch (scenenumber)
         {
             case 0:
                 selectedCutScene = CutScene.NoScene;
                 StartGameLevel();
+                
                 break;
             case 1:
                 selectedCutScene = CutScene.DrinkCola;
@@ -71,5 +99,18 @@ public class LevelLoader : MonoBehaviour
         
     }
 
+    public void LoadAndStartNextLevel()
+    {
+        SelectSceneAndStartGame(currentSceneNumber + 1);
+    }
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
+    }
 
+    public void ReplaySameLevel()
+    {
+        SelectSceneAndStartGame(currentSceneNumber);
+    }
 }
