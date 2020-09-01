@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelCompletePanel : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     public GameObject levelUpPanel;
     public static LevelCompletePanel Instance { get; private set; }
+
+    public Text goldText;
 
     private void Awake()
     {
@@ -42,5 +45,12 @@ public class LevelCompletePanel : MonoBehaviour
     public void ButtonReplayLevel()
     {
         LevelLoader.Instance.ReplaySameLevel();
+    }
+
+    public void GoldEarnedAmount(int amount)
+    {
+        int currentValue = PlayerPrefs.GetInt("Gold", 0);
+        PlayerPrefs.SetInt("Gold", currentValue + amount);
+        goldText.text = "" + amount;
     }
 }

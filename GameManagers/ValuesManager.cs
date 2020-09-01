@@ -42,15 +42,20 @@ public class ValuesManager : MonoBehaviour
         }
     }
 
-    public void AddValue(string stringValue, Text inputText, int addAmount) 
+    public void AddValue(string stringValue, int addAmount) 
     {
         int currentValue = PlayerPrefs.GetInt(stringValue, 0);
 
         PlayerPrefs.SetInt(stringValue, currentValue + addAmount);
 
-        inputText.text = PlayerPrefs.GetInt(stringValue).ToString();
     }
 
+    public void ResetGameProgress()
+    {
+        PlayerPrefs.DeleteAll();
+        GetValue("Gold", goldText);
+        GetValue("Diamond", diamondText);
+        GetValue("Lives", livesText);
+    }
 
-    
 }

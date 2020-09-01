@@ -98,6 +98,7 @@ public class DrinkColaScene : MonoBehaviour
     public void completeColaLevel()
     {
         LevelCompletePanel.Instance.completeLevel();
+        LevelCompletePanel.Instance.GoldEarnedAmount(75);
     }
 
 }
