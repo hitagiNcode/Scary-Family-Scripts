@@ -81,15 +81,18 @@ public class LevelLoader : MonoBehaviour
         {
             case 0:
                 selectedCutScene = CutScene.NoScene;
+                currentSceneNumber = 0;
                 StartGameLevel();
                 
                 break;
             case 1:
                 selectedCutScene = CutScene.DrinkCola;
+                currentSceneNumber = 1;
                 StartGameLevel();
                 break;
             case 2:
                 selectedCutScene = CutScene.NewspaperRush;
+                currentSceneNumber = 2;
                 StartGameLevel();
                 break;
             default:

@@ -13,6 +13,7 @@ public class DrinkColaScene : MonoBehaviour
     public GameObject sceneDrinkCola;
     public GameObject SceneCharacter;
     public Transform oldManHand;
+    public AudioClip pourClip;
 
 
     [HideInInspector]
@@ -21,6 +22,7 @@ public class DrinkColaScene : MonoBehaviour
     private Vector3 colaStartPos;
     private Quaternion colastartRot;
     private NpcControl mainCharController;
+    private bool runOnce = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,11 @@ public class DrinkColaScene : MonoBehaviour
         if (drinkIsReady)
         {
             mainCharController.GoToScenePos(scenePos.transform);
+            if (!runOnce)
+            {
+                StartCoroutine(ColaAnimEnum());
+                runOnce = true;
+            }
         }
         if (drinkIsReady && mainCharController.pathReached)
         {
@@ -99,6 +106,20 @@ public class DrinkColaScene : MonoBehaviour
     {
         LevelCompletePanel.Instance.completeLevel();
         LevelCompletePanel.Instance.GoldEarnedAmount(75);
+    }
+
+    IEnumerator ColaAnimEnum()
+    {
+        Debug.Log("Cola anim calisiyor");
+        GameObject pourObj = RayCaster.instance.GetHandObject();
+        pourObj.transform.SetParent(cola.transform);
+        pourObj.GetComponent<Animation>().Play();
+        RayCaster.instance.SetPlayerhandEmpty();
+        GameObject.FindGameObjectWithTag("MainAudioSource").GetComponent<AudioSource>().PlayOneShot(pourClip);
+
+        yield return new WaitForSeconds(2f);
+        pourObj.SetActive(false);
+        
     }
 
 }

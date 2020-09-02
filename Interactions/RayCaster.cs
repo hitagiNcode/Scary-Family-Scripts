@@ -147,4 +147,10 @@ public class RayCaster : MonoBehaviour
 
         return handObj.GetGameObj();
     }
+
+    public void SetPlayerhandEmpty()
+    {
+        handObj = null;
+        playerAnimator.SetBool("HoldingItem", false);
+    }
 }
