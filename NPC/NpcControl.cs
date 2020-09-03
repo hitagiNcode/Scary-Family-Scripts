@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions.Must;
+using UnityStandardAssets.Characters.FirstPerson;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMesh))]
 public class NpcControl : MonoBehaviour
@@ -15,6 +16,7 @@ public class NpcControl : MonoBehaviour
     public AudioSource m_audsource;
     public AudioClip violinAudio;
     public AudioSource chaseAudioLoop1;
+    public GameObject handPointer;
     public GameObject[] disableAudios;
     public SingleDoor[] frontGates;
 
@@ -24,7 +26,7 @@ public class NpcControl : MonoBehaviour
     public ThirdPersonCharacter1 character { get; private set; }
     private float baseSpeed;
     
-    
+    [HideInInspector]
     public bool isCoroutineStarted = false;
     private float waitSeconds = 5f;
     private GameObject player;
@@ -34,12 +36,16 @@ public class NpcControl : MonoBehaviour
     private int unChaseDistance = 18;
     private bool playAudio = false;
     private bool borderCollided = false;
+    private Animator m_animator;
+    private bool holdPlayer = false;
+    private bool playerScripts = false;
 
     //----------------------------------
 
 
     void Start()
     {
+        m_animator = GetComponent<Animator>();
         agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
         character = GetComponent<ThirdPersonCharacter1>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -82,6 +88,23 @@ public class NpcControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (holdPlayer)
+        {
+            player.transform.position = handPointer.transform.position;
+            if (playerScripts)
+            {
+                FirstPersonController playerController = player.GetComponent<FirstPersonController>();
+                playerController.m_Animator.SetInteger("Speed", 2);
+                playerController.enabled = false;
+                player.GetComponent<CharacterController>().enabled = false;
+                
+                Debug.Log("de activating movement of player");
+                playerScripts = false;
+            }
+            
+
+        }
+
         if (!chasePlayer && !borderCollided)
         {
             Raycasting();
@@ -156,16 +179,11 @@ public class NpcControl : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("player have been caught");
-            playerIsCaught = true;
-            StopChaseAudio();
-            chasePlayer = false;
+            CatchPlayer();
         }
         if (other.gameObject.CompareTag("HouseBorder"))
         {
-            
             borderCollided = true;
-           
         }
 
     }
@@ -180,6 +198,17 @@ public class NpcControl : MonoBehaviour
                 frontGates[i].CloseGates();
             }
         }
+    }
+    
+    private void CatchPlayer()
+    {
+        m_animator.SetBool("GrabPlayer", true);
+        Debug.Log("player have been caught");
+        holdPlayer = true;
+        playerIsCaught = true;
+        playerScripts = true;
+        StopChaseAudio();
+        chasePlayer = false;
     }
 
     private void Raycasting()
@@ -242,6 +271,7 @@ public class NpcControl : MonoBehaviour
         }
     }
 
+    //This function is going to be different for each scenepos
     public void GoToScenePos(Transform posObj)
     {
         target = posObj;
@@ -271,6 +301,7 @@ public class NpcControl : MonoBehaviour
         }
     }
 
+    //This enumerator is giving a delay to re-chase player
     IEnumerator DelayedBorderCollider()
     {
         yield return new WaitForSeconds(2f);
