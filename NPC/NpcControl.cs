@@ -91,6 +91,7 @@ public class NpcControl : MonoBehaviour
         if (holdPlayer)
         {
             player.transform.position = handPointer.transform.position;
+            player.transform.rotation = handPointer.transform.rotation;
             if (playerScripts)
             {
                 FirstPersonController playerController = player.GetComponent<FirstPersonController>();
