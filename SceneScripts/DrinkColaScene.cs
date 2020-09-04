@@ -54,7 +54,7 @@ public class DrinkColaScene : MonoBehaviour
                 runOnce = true;
             }
         }
-        if (drinkIsReady && mainCharController.pathReached)
+        if (drinkIsReady && mainCharController.pathReached &&!mainCharController.playerIsCaught)
         {
             secondCutScene.SetActive(true);
             sceneMainChar.SetActive(false);

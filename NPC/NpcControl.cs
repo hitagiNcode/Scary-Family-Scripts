@@ -10,14 +10,22 @@ using UnityStandardAssets.Characters.FirstPerson;
 [RequireComponent(typeof(UnityEngine.AI.NavMesh))]
 public class NpcControl : MonoBehaviour
 {
+    //This npc always goes to this target
     public Transform target;
     public GameObject raycastFrom;
     public bool pathReached;
+
+    //------Audios
     public AudioSource m_audsource;
     public AudioClip violinAudio;
     public AudioSource chaseAudioLoop1;
-    public GameObject handPointer;
     public GameObject[] disableAudios;
+    //-----------
+
+    //hand pointer is for here should player go when grabbed
+    public GameObject handPointer;
+    
+    //This is for disabling front gates
     public SingleDoor[] frontGates;
 
     //Privates
@@ -27,15 +35,25 @@ public class NpcControl : MonoBehaviour
     private float baseSpeed;
     
     [HideInInspector]
+    //This coroutine must be false to get new destination also should make this private later
     public bool isCoroutineStarted = false;
     private float waitSeconds = 5f;
+
+    //Player in the scene
     private GameObject player;
-    private bool playerIsCaught = false;
+    public bool playerIsCaught = false;
+
+    //when this is true npc goes to cutscene position
     private bool goScenePosition = false;
     private float traceDistance = 13f;
     private int unChaseDistance = 18;
+
     private bool playAudio = false;
+
+    //When border in frontgates collided this becomes true
     private bool borderCollided = false;
+
+    
     private Animator m_animator;
     private bool holdPlayer = false;
     private bool playerScripts = false;
@@ -106,7 +124,7 @@ public class NpcControl : MonoBehaviour
 
         }
 
-        if (!chasePlayer && !borderCollided)
+        if (!chasePlayer && !borderCollided &&!playerIsCaught)
         {
             Raycasting();
         }
@@ -204,6 +222,7 @@ public class NpcControl : MonoBehaviour
     private void CatchPlayer()
     {
         m_animator.SetBool("GrabPlayer", true);
+        LevelFailPanel.Instance.FailLevel();
         Debug.Log("player have been caught");
         holdPlayer = true;
         playerIsCaught = true;
@@ -275,8 +294,12 @@ public class NpcControl : MonoBehaviour
     //This function is going to be different for each scenepos
     public void GoToScenePos(Transform posObj)
     {
-        target = posObj;
-        goScenePosition = true;
+        if (!playerIsCaught)
+        {
+            target = posObj;
+            goScenePosition = true;
+        }
+        
         
     }
 

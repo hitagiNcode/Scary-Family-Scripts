@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PauseMenuReal : MonoBehaviour
 {
-   
+   public static PauseMenuReal  Instance { get; private set; }
 
     public GameObject pauseMenuUI;
     public GameObject pauseMenuPanel;
@@ -14,6 +14,13 @@ public class PauseMenuReal : MonoBehaviour
     public GameObject PlayerUI;
     public Image[] imagesUI;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         pauseMenuUI.SetActive(false);
