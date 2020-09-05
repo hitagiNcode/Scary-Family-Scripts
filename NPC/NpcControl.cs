@@ -19,6 +19,7 @@ public class NpcControl : MonoBehaviour
     public AudioSource m_audsource;
     public AudioClip violinAudio;
     public AudioSource chaseAudioLoop1;
+    public AudioClip gotyouAudio;
     public GameObject[] disableAudios;
     //-----------
 
@@ -223,6 +224,7 @@ public class NpcControl : MonoBehaviour
     {
         m_animator.SetBool("GrabPlayer", true);
         LevelFailPanel.Instance.FailLevel();
+        m_audsource.PlayOneShot(gotyouAudio);
         Debug.Log("player have been caught");
         holdPlayer = true;
         playerIsCaught = true;
