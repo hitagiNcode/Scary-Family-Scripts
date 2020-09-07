@@ -144,6 +144,7 @@ public class NpcControl : MonoBehaviour
                 target = null;
                 agent.SetDestination(raycastFrom.transform.position);
                 StopChaseAudio();
+                StartCoroutine(YellWhenEscaped());
                 Debug.Log("Unchasing playerr");
                 chasePlayer = false;
             }
@@ -243,8 +244,7 @@ public class NpcControl : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                chasePlayer = true;
-                playAudio = true;
+                ChaseFunction();
             }
         }
 
@@ -254,8 +254,7 @@ public class NpcControl : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                chasePlayer = true;
-                playAudio = true;
+                ChaseFunction();
             }
         }
 
@@ -265,8 +264,7 @@ public class NpcControl : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                chasePlayer = true;
-                playAudio = true;
+                ChaseFunction();
             }
         }
 
@@ -276,14 +274,21 @@ public class NpcControl : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                chasePlayer = true;
-                playAudio = true;
+                ChaseFunction();
+
             }
         }
+    }
+    private void ChaseFunction()
+    {
+        chasePlayer = true;
+        playAudio = true;
+        
     }
 
     private void ChasePlayer()
     {
+        
         if (chasePlayer && !playerIsCaught)
         {
             target = player.transform;
@@ -334,4 +339,10 @@ public class NpcControl : MonoBehaviour
         borderCollided = false;
     }
 
+    IEnumerator YellWhenEscaped()
+    {
+        m_animator.SetBool("Yelling", true);
+        yield return new WaitForSeconds(1.5f);
+        m_animator.SetBool("Yelling", false);
+    }
 }
