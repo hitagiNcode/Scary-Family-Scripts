@@ -7,12 +7,6 @@ public class ColaSeneCola : InteractableObj
 {
     public DrinkColaScene colaSceneScript;
     public int[] posibbleItems;
-    //private Animator m_animator;
-    
-    private void Start()
-    {
-        //m_animator = GetComponent<Animator>();
-    }
 
     public override void Interact()
     {
@@ -30,13 +24,13 @@ public class ColaSeneCola : InteractableObj
                
                 colaSceneScript.drinkIsReady = true;
                 isValid = true;
-                Debug.Log("drinkready");
+                TipsManager.Instance.SendTipToPlayer("Drink is ready now run away!");
                 break;
             }
         }
         if (!isValid)
         {
-            Debug.Log("You need a liquid item to mix with cola");
+            TipsManager.Instance.SendTipToPlayer("Find something right to mix with cola!");
         }
     }
 
