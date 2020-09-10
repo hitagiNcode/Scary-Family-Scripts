@@ -7,13 +7,11 @@ public class TipsManager : MonoBehaviour
 {
     public static TipsManager Instance { get; private set; }
 
-    public CanvasGroup tipPanel;
+    public GameObject tipPanel;
     public Text tipText;
 
-    private bool mFaded = false;
-
-    private float Duration = 0.4f;
-    
+    private Animator m_animator;
+    private bool tipOnscreen = false;
 
     private void Awake()
     {
@@ -23,16 +21,29 @@ public class TipsManager : MonoBehaviour
             
         }
     }
-    
-    private void Fade()
-    {
-       
-    }
 
+    private void Start()
+    {
+        m_animator = tipPanel.GetComponent<Animator>();
+        m_animator.SetBool("Visible", false);
+    }
 
     public void SendTipToPlayer(string textString)
     {
-        tipText.text = textString;
+        if (!tipOnscreen)
+        {
+            tipText.text = textString;
+            StartCoroutine(FadeInOut());
+        }
+        
     }
 
+    private IEnumerator FadeInOut()
+    {
+        tipOnscreen = true;
+        m_animator.SetBool("Visible", true);
+        yield return new WaitForSeconds(5f);
+        m_animator.SetBool("Visible", false);
+        tipOnscreen = false;
+    }
 }
