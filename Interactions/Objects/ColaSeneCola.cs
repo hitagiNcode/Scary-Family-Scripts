@@ -25,6 +25,7 @@ public class ColaSeneCola : InteractableObj
                 colaSceneScript.drinkIsReady = true;
                 isValid = true;
                 TipsManager.Instance.SendTipToPlayer("Drink is ready now run away!");
+                MainAudioManager.Instance.PlayRightItem();
                 transform.gameObject.tag = "Untagged";
                 break;
             }
@@ -32,6 +33,7 @@ public class ColaSeneCola : InteractableObj
         if (!isValid)
         {
             TipsManager.Instance.SendTipToPlayer("Find something right to mix!");
+            MainAudioManager.Instance.PlayWrongItem();
         }
     }
 

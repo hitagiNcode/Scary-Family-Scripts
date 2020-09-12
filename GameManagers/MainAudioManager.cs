@@ -1,0 +1,44 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MainAudioManager : MonoBehaviour
+{
+    public AudioClip wrongItem;
+    public AudioClip rightItem;
+
+
+    public static MainAudioManager Instance { get; private set; }
+    private AudioSource m_audioSource;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+
+        }
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        m_audioSource = GetComponent<AudioSource>();
+    }
+
+    
+
+    public void PlayOne(AudioClip i_audio)
+    {
+        m_audioSource.PlayOneShot(i_audio);
+    }
+
+    public void PlayWrongItem()
+    {
+        m_audioSource.PlayOneShot(wrongItem, 0.4f);
+    }
+
+    public void PlayRightItem()
+    {
+        m_audioSource.PlayOneShot(rightItem, 0.4f);
+    }
+}

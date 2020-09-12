@@ -47,6 +47,7 @@ public class NpcControl : MonoBehaviour
     //when this is true npc goes to cutscene position
     private bool goScenePosition = false;
     private float traceDistance = 13f;
+    private float sphereRadius = 4f; 
     private int unChaseDistance = 18;
 
     private bool playAudio = false;
@@ -127,7 +128,7 @@ public class NpcControl : MonoBehaviour
 
         if (!chasePlayer && !borderCollided &&!playerIsCaught)
         {
-            Raycasting();
+            Raycasting(); 
         }
         ChasePlayer();
         UnchasePlayer();
@@ -234,13 +235,44 @@ public class NpcControl : MonoBehaviour
         chasePlayer = false;
     }
 
+    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Vector3 rayForward = raycastFrom.transform.TransformDirection(Vector3.forward);
+        Gizmos.DrawWireSphere(raycastFrom.transform.position + rayForward * traceDistance, sphereRadius);
+
+        
+    }
+
     private void Raycasting()
     {
         RaycastHit hit;
-        Vector3 rayForward = raycastFrom.transform.TransformDirection(Vector3.forward) ;
-        Debug.DrawRay(raycastFrom.transform.position, rayForward * traceDistance, Color.red);
+
+        //Vector3 rayForward = raycastFrom.transform.TransformDirection(Vector3.forward) ;
+    
+        if (Physics.SphereCast(raycastFrom.transform.position, sphereRadius, raycastFrom.transform.forward, out hit,traceDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                ChaseFunction();
+                Debug.Log("Forward sphere");
+            }
+        }
+
+        //Vector3 rayLeft = raycastFrom.transform.TransformDirection(Vector3.left) ;
+        /*
+        if (Physics.SphereCast(raycastFrom.transform.position, sphereRadius, raycastFrom.transform.right * -1, out hit,traceDistance))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                ChaseFunction();
+            }
+        }
+
+        //Vector3 rayRight = raycastFrom.transform.TransformDirection(Vector3.right);
         
-        if (Physics.Raycast(raycastFrom.transform.position, rayForward, out hit,traceDistance))
+        if (Physics.SphereCast(raycastFrom.transform.position, sphereRadius, raycastFrom.transform.right, out hit,traceDistance))
         {
             if (hit.collider.CompareTag("Player"))
             {
@@ -248,37 +280,19 @@ public class NpcControl : MonoBehaviour
             }
         }
 
-        Vector3 rayLeft = raycastFrom.transform.TransformDirection(Vector3.left) ;
-        Debug.DrawRay(raycastFrom.transform.position, rayLeft * traceDistance, Color.green);
-        if (Physics.Raycast(raycastFrom.transform.position, rayLeft, out hit,traceDistance))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                ChaseFunction();
-            }
-        }
-
-        Vector3 rayRight = raycastFrom.transform.TransformDirection(Vector3.right);
-        Debug.DrawRay(raycastFrom.transform.position, rayRight *traceDistance, Color.blue);
-        if (Physics.Raycast(raycastFrom.transform.position, rayRight, out hit,traceDistance))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                ChaseFunction();
-            }
-        }
-
-        Vector3 rayBack = raycastFrom.transform.TransformDirection(Vector3.back);
-        Debug.DrawRay(raycastFrom.transform.position, rayBack * traceDistance, Color.yellow);
-        if (Physics.Raycast(raycastFrom.transform.position, rayBack, out hit,traceDistance))
+        //Vector3 rayBack = raycastFrom.transform.TransformDirection(Vector3.back);
+        
+        if (Physics.SphereCast(raycastFrom.transform.position, sphereRadius, raycastFrom.transform.forward * -1, out hit,traceDistance))
         {
             if (hit.collider.CompareTag("Player"))
             {
                 ChaseFunction();
 
             }
-        }
+        }*/
     }
+
+
     private void ChaseFunction()
     {
         chasePlayer = true;
