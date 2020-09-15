@@ -14,6 +14,7 @@ public class NpcControl : MonoBehaviour
     public Transform target;
     public GameObject raycastFrom;
     public bool pathReached;
+    public NpcSight m_npcSight;
 
     //------Audios
     public AudioSource m_audsource;
@@ -46,16 +47,13 @@ public class NpcControl : MonoBehaviour
 
     //when this is true npc goes to cutscene position
     private bool goScenePosition = false;
-    private float traceDistance = 13f;
-    private float sphereRadius = 4f; 
-    private int unChaseDistance = 18;
-
+    private int unChaseDistance = 15;
     private bool playAudio = false;
 
     //When border in frontgates collided this becomes true
     private bool borderCollided = false;
 
-    
+    //Animations--------------
     private Animator m_animator;
     private bool holdPlayer = false;
     private bool playerScripts = false;
@@ -128,7 +126,13 @@ public class NpcControl : MonoBehaviour
 
         if (!chasePlayer && !borderCollided &&!playerIsCaught)
         {
-            Raycasting(); 
+            
+            m_npcSight.Raycast();
+            if (m_npcSight.playerInSight)
+            {
+                ChaseFunction();
+                m_npcSight.playerInSight = false;
+            }
         }
         ChasePlayer();
         UnchasePlayer();
@@ -234,64 +238,6 @@ public class NpcControl : MonoBehaviour
         StopChaseAudio();
         chasePlayer = false;
     }
-
-    
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Vector3 rayForward = raycastFrom.transform.TransformDirection(Vector3.forward);
-        Gizmos.DrawWireSphere(raycastFrom.transform.position + rayForward * traceDistance, sphereRadius);
-
-        
-    }
-
-    private void Raycasting()
-    {
-        RaycastHit hit;
-
-        //Vector3 rayForward = raycastFrom.transform.TransformDirection(Vector3.forward) ;
-    
-        if (Physics.SphereCast(raycastFrom.transform.position, sphereRadius, raycastFrom.transform.forward, out hit,traceDistance))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                ChaseFunction();
-                Debug.Log("Forward sphere");
-            }
-        }
-
-        //Vector3 rayLeft = raycastFrom.transform.TransformDirection(Vector3.left) ;
-        /*
-        if (Physics.SphereCast(raycastFrom.transform.position, sphereRadius, raycastFrom.transform.right * -1, out hit,traceDistance))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                ChaseFunction();
-            }
-        }
-
-        //Vector3 rayRight = raycastFrom.transform.TransformDirection(Vector3.right);
-        
-        if (Physics.SphereCast(raycastFrom.transform.position, sphereRadius, raycastFrom.transform.right, out hit,traceDistance))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                ChaseFunction();
-            }
-        }
-
-        //Vector3 rayBack = raycastFrom.transform.TransformDirection(Vector3.back);
-        
-        if (Physics.SphereCast(raycastFrom.transform.position, sphereRadius, raycastFrom.transform.forward * -1, out hit,traceDistance))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                ChaseFunction();
-
-            }
-        }*/
-    }
-
 
     private void ChaseFunction()
     {
