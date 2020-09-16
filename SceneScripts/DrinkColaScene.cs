@@ -110,7 +110,7 @@ public class DrinkColaScene : MonoBehaviour
 
     IEnumerator ColaAnimEnum()
     {
-        Debug.Log("Cola anim calisiyor");
+        
         GameObject pourObj = RayCaster.instance.GetHandObject();
         pourObj.transform.SetParent(cola.transform);
         pourObj.GetComponent<Animation>().Play();

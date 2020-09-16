@@ -33,7 +33,7 @@ public class NpcSight : MonoBehaviour
             {
                 if (hit.collider.gameObject == player)
                 {
-                    Debug.Log("player in sight");
+                    
                     playerInSight = true;
                 }
                 

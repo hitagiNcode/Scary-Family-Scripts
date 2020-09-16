@@ -7,6 +7,8 @@ public class LevelCompletePanel : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     public GameObject levelUpPanel;
+    public AudioClip levelDanceSound;
+
     public static LevelCompletePanel Instance { get; private set; }
 
     public Text goldText;
@@ -29,6 +31,7 @@ public class LevelCompletePanel : MonoBehaviour
         Time.timeScale = 0f;
         pauseMenuUI.SetActive(true);
         levelUpPanel.SetActive(true);
+        MainAudioManager.Instance.PlayOne(levelDanceSound);
     }
 
 
@@ -53,4 +56,5 @@ public class LevelCompletePanel : MonoBehaviour
         PlayerPrefs.SetInt("Gold", currentValue + amount);
         goldText.text = "" + amount;
     }
+
 }

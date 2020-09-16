@@ -27,18 +27,18 @@ public class MainAudioManager : MonoBehaviour
 
     
 
-    public void PlayOne(AudioClip i_audio)
+    public void PlayOne(AudioClip i_audio, float volume = 0.4f)
     {
-        m_audioSource.PlayOneShot(i_audio);
+        m_audioSource.PlayOneShot(i_audio, volume);
     }
 
     public void PlayWrongItem()
     {
-        m_audioSource.PlayOneShot(wrongItem, 0.4f);
+        m_audioSource.PlayOneShot(wrongItem, 0.6f);
     }
 
     public void PlayRightItem()
     {
-        m_audioSource.PlayOneShot(rightItem, 0.4f);
+        m_audioSource.PlayOneShot(rightItem, 0.6f);
     }
 }

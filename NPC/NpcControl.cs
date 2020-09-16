@@ -40,6 +40,7 @@ public class NpcControl : MonoBehaviour
     //This coroutine must be false to get new destination also should make this private later
     public bool isCoroutineStarted = false;
     private float waitSeconds = 5f;
+    private bool playerInrange = false;
 
     //Player in the scene
     private GameObject player;
@@ -124,7 +125,7 @@ public class NpcControl : MonoBehaviour
 
         }
 
-        if (!chasePlayer && !borderCollided &&!playerIsCaught)
+        if (!chasePlayer && !borderCollided &&!playerIsCaught && playerInrange)
         {
             
             m_npcSight.Raycast();
@@ -153,6 +154,15 @@ public class NpcControl : MonoBehaviour
                 Debug.Log("Unchasing playerr");
                 chasePlayer = false;
             }
+        }
+        if (!chasePlayer && distanceToPlayer < 13f)
+        {
+            playerInrange = true;
+            
+        }
+        else
+        {
+            playerInrange = false;
         }
         
     }
