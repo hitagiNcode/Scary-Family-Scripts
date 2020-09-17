@@ -7,29 +7,27 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public GameObject characterBoi;
+
     public GameObject CharacterPanel;
-
     public GameObject careerPanel;
-    public Text VersionText;
+    public GameObject coinShopPanel;
+    public GameObject valuesPanel;
 
+    public Text VersionText;
+    
     public GameObject settingsBut;
-    public GameObject backBut;
+    public GameObject m_backBut;
     public GameObject backButv2;
     // Start is called before the first frame update
     void Start()
     {
         CharacterPanelOFF();
-        CareerPanelOff();
+        careerPanel.SetActive(false);
+        coinShopPanel.SetActive(false);
+        valuesPanel.SetActive(false);
         VersionText.text = "V" + Application.version;
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public void SocialButton(string SocialUrl)
     {
@@ -51,24 +49,26 @@ public class MenuManager : MonoBehaviour
         backButv2.SetActive(false);
     }
 
-    public void CareerPanelOn()
-    {
-        careerPanel.SetActive(true);
-        settingsBut.SetActive(false);
-        backBut.SetActive(true);
-    }
-
-    public void CareerPanelOff()
-    {
-        careerPanel.SetActive(false);
-        settingsBut.SetActive(true);
-        backBut.SetActive(false);
-    }
-
     public void LoadSelectedLevel(int levelValue)
     {
         LevelLoader.Instance.SelectSceneAndStartGame(levelValue);
     }
 
-   
+   public void TurnPanelOn(GameObject panel)
+    {
+        panel.SetActive(true);
+        settingsBut.SetActive(false);
+        m_backBut.SetActive(true);
+        void CustomClickBack()
+        {
+            panel.SetActive(false);
+            settingsBut.SetActive(true);
+            m_backBut.SetActive(false);
+            m_backBut.GetComponent<Button>().onClick.RemoveListener(CustomClickBack);
+            
+        }
+        
+        m_backBut.GetComponent<Button>().onClick.AddListener(CustomClickBack);
+    }
+
 }
