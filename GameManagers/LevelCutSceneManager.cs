@@ -14,8 +14,10 @@ public class LevelCutSceneManager : MonoBehaviour
         {
             case LevelLoader.CutScene.DrinkCola:
                   CutSceneHolder.GetComponent<DrinkColaScene>().enabled = true;
+                Debug.Log("scene drinkcola is loaded");
                 break;
             case LevelLoader.CutScene.NewspaperRush:
+                CutSceneHolder.GetComponent<NewsPaperScene>().enabled = true;
                 Debug.Log("scene newspapaer is loaded");
                 break;
             default:
