@@ -15,6 +15,9 @@ public class NewsPaperScene : MonoBehaviour
     //Special to scene
     public GameObject trap;
     public GameObject newspaper;
+    public Transform oldmanHandplace;
+
+    private bool holdNewspaper = true;
 
     
     
@@ -30,6 +33,11 @@ public class NewsPaperScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (holdNewspaper)
+        {
+            newspaper.transform.position = oldmanHandplace.transform.position;
+            newspaper.transform.rotation = oldmanHandplace.transform.rotation;
+        }
         
     }
 
@@ -39,7 +47,7 @@ public class NewsPaperScene : MonoBehaviour
         newspaper.SetActive(true);
         firstCutScene.SetActive(true);
         secondCutScene.SetActive(false);
-        sceneCharacter.transform.position = agentStartPoint;
+        
         sceneMainChar.SetActive(false);
         mainCharController = sceneMainChar.GetComponent<NpcControl>();
         mainCharController.isCoroutineStarted = false;
@@ -56,5 +64,10 @@ public class NewsPaperScene : MonoBehaviour
     {
         LevelCompletePanel.Instance.completeLevel();
         LevelCompletePanel.Instance.GoldEarnedAmount(100);
+    }
+
+    public void ReleaseNewsPaper()
+    {
+        holdNewspaper = !holdNewspaper;
     }
 }
