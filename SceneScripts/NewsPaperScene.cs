@@ -16,6 +16,7 @@ public class NewsPaperScene : MonoBehaviour
     public GameObject trap;
     public GameObject newspaper;
     public Transform oldmanHandplace;
+    public Vector3 newspaperSpot;
 
     private bool holdNewspaper = true;
 
@@ -46,8 +47,9 @@ public class NewsPaperScene : MonoBehaviour
         trap.SetActive(true);
         newspaper.SetActive(true);
         firstCutScene.SetActive(true);
+        sceneCharacter.SetActive(true);
+
         secondCutScene.SetActive(false);
-        
         sceneMainChar.SetActive(false);
         mainCharController = sceneMainChar.GetComponent<NpcControl>();
         mainCharController.isCoroutineStarted = false;
@@ -69,5 +71,7 @@ public class NewsPaperScene : MonoBehaviour
     public void ReleaseNewsPaper()
     {
         holdNewspaper = !holdNewspaper;
+        newspaper.transform.position = newspaperSpot;
+        newspaper.transform.rotation = Quaternion.Euler(0, 18, 0);
     }
 }
