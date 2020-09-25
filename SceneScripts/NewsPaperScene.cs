@@ -17,7 +17,10 @@ public class NewsPaperScene : MonoBehaviour
     public GameObject newspaper;
     public Transform oldmanHandplace;
     public Vector3 newspaperSpot;
+    public Vector3 trapSpot;
 
+    private bool trapIsReady = false;
+    private bool paperIsReady = false;
     private bool holdNewspaper = true;
 
     
@@ -38,6 +41,12 @@ public class NewsPaperScene : MonoBehaviour
         {
             newspaper.transform.position = oldmanHandplace.transform.position;
             newspaper.transform.rotation = oldmanHandplace.transform.rotation;
+        }
+
+        if (paperIsReady&&trapIsReady)
+        {
+
+
         }
         
     }
@@ -73,5 +82,19 @@ public class NewsPaperScene : MonoBehaviour
         holdNewspaper = !holdNewspaper;
         newspaper.transform.position = newspaperSpot;
         newspaper.transform.rotation = Quaternion.Euler(0, 18, 0);
+    }
+
+    public void PlacedNewspaper()
+    {
+        paperIsReady = true;
+        newspaper.transform.gameObject.tag = "Untagged";
+    }
+    public void PlacedTrap()
+    {
+        trapIsReady = true;
+        trap.transform.gameObject.tag = "Untagged";
+        trap.transform.parent = null;
+        trap.transform.position = trapSpot;
+        trap.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }

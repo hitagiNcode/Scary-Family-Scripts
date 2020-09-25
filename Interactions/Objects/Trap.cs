@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
+public class Trap : LiftableObjects
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetObjScripts();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Interact()
     {
-        
+        base.Interact();
+    }
+
+    public override void Throw()
+    {
+        base.Throw();
     }
 }
