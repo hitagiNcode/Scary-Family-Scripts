@@ -18,10 +18,16 @@ public class NewsPaperScene : MonoBehaviour
     public Transform oldmanHandplace;
     public Vector3 newspaperSpot;
     public Vector3 trapSpot;
+    public Vector3 placedNewspaperSpot;
+    public DoubleDoor m_door;
+    public GameObject trapCharPlace;
 
     private bool trapIsReady = false;
     private bool paperIsReady = false;
+    private bool bellrang = false;
+
     private bool holdNewspaper = true;
+    private bool holdTrap = false;
 
     
     
@@ -42,13 +48,22 @@ public class NewsPaperScene : MonoBehaviour
             newspaper.transform.position = oldmanHandplace.transform.position;
             newspaper.transform.rotation = oldmanHandplace.transform.rotation;
         }
-
-        if (paperIsReady&&trapIsReady)
+        if (holdTrap)
         {
-
-
+            trap.transform.position = trapCharPlace.transform.position;
+            trap.transform.rotation = trapCharPlace.transform.rotation;
         }
-        
+        if (bellrang)
+        {
+            mainCharController.GoToScenePos(agentMovePos.transform);
+        }
+        if (bellrang && mainCharController.pathReached && !mainCharController.playerIsCaught)
+        {
+            secondCutScene.SetActive(true);
+            sceneMainChar.SetActive(false);
+            sceneCharacter.SetActive(true);
+        }
+
     }
 
     private void SetGameObjects()
@@ -88,6 +103,9 @@ public class NewsPaperScene : MonoBehaviour
     {
         paperIsReady = true;
         newspaper.transform.gameObject.tag = "Untagged";
+        newspaper.transform.parent = null;
+        newspaper.transform.position = placedNewspaperSpot;
+        newspaper.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
     public void PlacedTrap()
     {
@@ -96,5 +114,33 @@ public class NewsPaperScene : MonoBehaviour
         trap.transform.parent = null;
         trap.transform.position = trapSpot;
         trap.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public void RingBell()
+    {
+        if (paperIsReady && trapIsReady)
+        {
+            bellrang = true;
+
+        }
+        
+    }
+
+    public void OpenDoor()
+    {
+        m_door.ScriptDoorOpen();
+    }
+
+    public void PutTrap()
+    {
+        holdTrap = true;
+        trap.GetComponent<Animator>().SetBool("CloseTrap", true);
+    }
+
+    public void CompleteLevel()
+    {
+       LevelCompletePanel.Instance.completeLevel();
+       LevelCompletePanel.Instance.GoldEarnedAmount(95);
+       Time.timeScale = 0f;
     }
 }

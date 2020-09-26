@@ -51,6 +51,15 @@ public class DoubleDoor : InteractableObj
         }
     }
 
+    public void ScriptDoorOpen()
+    {
+        if (!_anim.GetBool("Open"))
+        {
+            _anim.SetBool("Open", true);
+            m_AudSource.PlayOneShot(openClip, 0.5f);
+        }
+    }
+
 
 }
 
