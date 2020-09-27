@@ -7,6 +7,7 @@ public class PauseMenuReal : MonoBehaviour
 {
    public static PauseMenuReal  Instance { get; private set; }
 
+    public Slider sensSlider;
     public GameObject pauseMenuUI;
     public GameObject pauseMenuPanel;
     public GameObject optionsMenuUI;
@@ -20,11 +21,13 @@ public class PauseMenuReal : MonoBehaviour
         {
             Instance = this;
         }
+        sensSlider.value = PlayerPrefs.GetFloat("Sensivity", 2);
     }
     private void Start()
     {
         pauseMenuUI.SetActive(false);
         pauseMenuPanel.SetActive(false);
+        
     }
 
 

@@ -96,7 +96,9 @@ public class LevelLoader : MonoBehaviour
                 StartGameLevel();
                 break;
             default:
-                
+                selectedCutScene = CutScene.NoScene;
+                currentSceneNumber = 0;
+                StartGameLevel();
                 break;
         }
         
