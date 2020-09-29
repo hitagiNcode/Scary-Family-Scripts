@@ -22,6 +22,10 @@ public class NewsPaperScene : MonoBehaviour
     public DoubleDoor m_door;
     public GameObject trapCharPlace;
 
+    
+    public GameObject particleNewspaper;
+    public GameObject particleTrap;
+
     private bool trapIsReady = false;
     private bool paperIsReady = false;
     private bool bellrang = false;
@@ -68,8 +72,7 @@ public class NewsPaperScene : MonoBehaviour
 
     private void SetGameObjects()
     {
-        trap.SetActive(true);
-        newspaper.SetActive(true);
+        
         firstCutScene.SetActive(true);
         sceneCharacter.SetActive(true);
 
@@ -102,6 +105,8 @@ public class NewsPaperScene : MonoBehaviour
     public void PlacedNewspaper()
     {
         paperIsReady = true;
+        
+        particleNewspaper.SetActive(false);
         newspaper.transform.gameObject.tag = "Untagged";
         newspaper.transform.parent = null;
         newspaper.transform.position = placedNewspaperSpot;
@@ -110,6 +115,7 @@ public class NewsPaperScene : MonoBehaviour
     public void PlacedTrap()
     {
         trapIsReady = true;
+        particleTrap.SetActive(false);
         trap.transform.gameObject.tag = "Untagged";
         trap.transform.parent = null;
         trap.transform.position = trapSpot;
