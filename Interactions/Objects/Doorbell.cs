@@ -5,7 +5,7 @@ using UnityEngine;
 public class Doorbell : InteractableObj
 {
     public NewsPaperScene sceneScript;
-
+    public NpcControl gelenNpc;
 
     private AudioSource m_source;
     public AudioClip ringClip;
@@ -21,7 +21,7 @@ public class Doorbell : InteractableObj
         m_source.PlayOneShot(ringClip, 0.3f);
 
         sceneScript.RingBell();
-       
+        gelenNpc.GoDoorBell(transform);
     }
 
     

@@ -276,8 +276,13 @@ public class NpcControl : MonoBehaviour
             target = posObj;
             goScenePosition = true;
         }
-        
-        
+    }
+    public void GoDoorBell(Transform posObj)
+    {
+        if (!goScenePosition)
+        {
+            target = posObj;
+        }
     }
 
     private void PlayChaseAudio()
