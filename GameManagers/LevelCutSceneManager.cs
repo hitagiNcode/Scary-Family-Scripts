@@ -20,6 +20,10 @@ public class LevelCutSceneManager : MonoBehaviour
                 CutSceneHolder.GetComponent<NewsPaperScene>().enabled = true;
                 Debug.Log("scene newspapaer is loaded");
                 break;
+            case LevelLoader.CutScene.BBQFire:
+                CutSceneHolder.GetComponent<BBQScene>().enabled = true;
+                Debug.Log("scene bbqfire is loaded");
+                break;
             default:
                 Debug.Log("Scene Secilmedi");
                 break;

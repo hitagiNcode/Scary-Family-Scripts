@@ -89,12 +89,6 @@ public class NewsPaperScene : MonoBehaviour
         sceneMainChar.SetActive(true);
     }
 
-    public void completeLevel()
-    {
-        LevelCompletePanel.Instance.completeLevel();
-        LevelCompletePanel.Instance.GoldEarnedAmount(100);
-    }
-
     public void ReleaseNewsPaper()
     {
         holdNewspaper = !holdNewspaper;
