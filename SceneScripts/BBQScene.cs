@@ -16,7 +16,7 @@ public class BBQScene : MonoBehaviour
 
     public GameObject sceneSis;
     public GameObject sisPlace;
-    private bool holdSis;
+    private bool holdSis = false;
 
 
 
@@ -59,5 +59,10 @@ public class BBQScene : MonoBehaviour
         LevelCompletePanel.Instance.completeLevel();
         LevelCompletePanel.Instance.GoldEarnedAmount(100);
         Time.timeScale = 0f;
+    }
+
+    public void HoldReleaseSis()
+    {
+        holdSis = !holdSis;
     }
 }
