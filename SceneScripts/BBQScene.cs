@@ -14,8 +14,9 @@ public class BBQScene : MonoBehaviour
 
     //Special to scene
 
-
-
+    public GameObject sceneSis;
+    public GameObject sisPlace;
+    private bool holdSis;
 
 
 
@@ -29,7 +30,11 @@ public class BBQScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (holdSis)
+        {
+            sceneSis.transform.position = sisPlace.transform.position;
+            sceneSis.transform.rotation = sisPlace.transform.rotation;
+        }
     }
 
     private void SetGameObjects()
