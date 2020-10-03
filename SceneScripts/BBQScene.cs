@@ -41,6 +41,7 @@ public class BBQScene : MonoBehaviour
     {
 
         firstCutScene.SetActive(true);
+        sceneCharacter.SetActive(true);
         secondCutScene.SetActive(false);
         sceneMainChar.SetActive(false);
         mainCharController = sceneMainChar.GetComponent<NpcControl>();
