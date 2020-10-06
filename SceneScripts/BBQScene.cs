@@ -13,10 +13,11 @@ public class BBQScene : MonoBehaviour
     private NpcControl mainCharController;
 
     //Special to scene
-
+    
     public GameObject sceneSis;
     public GameObject sisPlace;
     private bool holdSis = false;
+    public bool fireIsChanged = false;
 
 
 
