@@ -36,6 +36,15 @@ public class BBQScene : MonoBehaviour
             sceneSis.transform.position = sisPlace.transform.position;
             sceneSis.transform.rotation = sisPlace.transform.rotation;
         }
+        if (fireIsChanged)
+        {
+            mainCharController.GoToScenePos(firstCutScene.transform);
+        }
+        if (fireIsChanged && mainCharController.pathReached && !mainCharController.playerIsCaught)
+        {
+            secondCutScene.SetActive(true);
+            sceneMainChar.SetActive(false);
+        }
     }
 
     private void SetGameObjects()

@@ -18,7 +18,8 @@ public class RayCaster : MonoBehaviour
     //Raycast Layer
     [SerializeField] private LayerMask layerMaskInteract;
     public Image AimCursor;
-    public Image MobileHand;
+    
+    public Button interactButton;
     
     
 
@@ -100,14 +101,16 @@ public class RayCaster : MonoBehaviour
     private void ChangeCursorToNormal()
     {
         AimCursor.color = new Color32(255, 255, 255, 255);
-        MobileHand.color = new Color32(255, 255, 255, 150);
+        interactButton.interactable = false;
+        
         isClickAble = false;
     }
 
     private void ChangeCursor()
     {
         AimCursor.color = new Color32(240, 52, 52, 255);
-        MobileHand.color = new Color32(255, 255, 255, 255);
+        interactButton.interactable = true;
+        
         isClickAble = true;
     }
 

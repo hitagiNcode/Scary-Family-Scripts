@@ -18,10 +18,9 @@ public class Barbequee : InteractableObj
     {
         if (RayCaster.instance.isHoldingRightItem(possibleItem))
         {
-            scriptBbq.fireIsChanged = true;
-            TipsManager.Instance.SendTipToPlayer("Look at this fire. Good Job!");
-            MainAudioManager.Instance.PlayRightItem();
-            PourAnimEnum();
+
+            transform.gameObject.tag = "Untagged";
+            StartCoroutine(PourAnimEnum());
         }
         else
         {
@@ -31,12 +30,14 @@ public class Barbequee : InteractableObj
     }
     IEnumerator PourAnimEnum()
     {
-
+        scriptBbq.fireIsChanged = true;
+        TipsManager.Instance.SendTipToPlayer("Look at this fire. Good Job!");
+        MainAudioManager.Instance.PlayRightItem();
         GameObject pourObj = RayCaster.instance.GetHandObject();
         pourObj.transform.SetParent(transform);
         pourObj.GetComponent<Animation>().Play();
         RayCaster.instance.SetPlayerhandEmpty();
-        transform.gameObject.tag = "Untagged";
+        
 
         yield return new WaitForSeconds(2f);
         pourObj.SetActive(false);
