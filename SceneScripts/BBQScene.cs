@@ -14,10 +14,12 @@ public class BBQScene : MonoBehaviour
 
     //Special to scene
     
+    
     public GameObject sceneSis;
     public GameObject sisPlace;
     private bool holdSis = false;
     public bool fireIsChanged = false;
+    private bool scene2Started = false;
 
 
 
@@ -38,12 +40,18 @@ public class BBQScene : MonoBehaviour
         }
         if (fireIsChanged)
         {
-            mainCharController.GoToScenePos(firstCutScene.transform);
+            mainCharController.GoToScenePos(agentMovePos);
         }
         if (fireIsChanged && mainCharController.pathReached && !mainCharController.playerIsCaught)
         {
-            secondCutScene.SetActive(true);
-            sceneMainChar.SetActive(false);
+            scene2Started = true;
+            if (scene2Started)
+            {
+                secondCutScene.SetActive(true);
+                sceneMainChar.SetActive(false);
+                sceneCharacter.SetActive(true);
+                scene2Started = false;
+            }
         }
     }
 
