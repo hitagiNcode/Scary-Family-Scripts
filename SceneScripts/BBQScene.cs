@@ -13,11 +13,12 @@ public class BBQScene : MonoBehaviour
     private NpcControl mainCharController;
 
     //Special to scene
-    
-    
+
+    public GameObject [] bigFires;
     public GameObject sceneSis;
     public GameObject sisPlace;
     private bool holdSis = false;
+    private bool startFires = false;
     public bool fireIsChanged = false;
     private bool scene2Started = false;
 
@@ -42,6 +43,13 @@ public class BBQScene : MonoBehaviour
         {
             mainCharController.GoToScenePos(agentMovePos);
         }
+        if (startFires)
+        {
+            for (int i = 0; i < bigFires.Length; i++)
+            {
+                bigFires[i].SetActive(true);
+            }
+        }
         if (fireIsChanged && mainCharController.pathReached && !mainCharController.playerIsCaught)
         {
             scene2Started = true;
@@ -50,7 +58,10 @@ public class BBQScene : MonoBehaviour
                 secondCutScene.SetActive(true);
                 sceneMainChar.SetActive(false);
                 sceneCharacter.SetActive(true);
+                HoldReleaseSis();
+
                 scene2Started = false;
+                
             }
         }
     }
@@ -83,5 +94,10 @@ public class BBQScene : MonoBehaviour
     public void HoldReleaseSis()
     {
         holdSis = !holdSis;
+    }
+
+    public void ActivateFires()
+    {
+        startFires = true;
     }
 }
