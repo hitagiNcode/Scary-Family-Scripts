@@ -22,12 +22,22 @@ public class LiftableObjects : InteractableObj
     //Hand rotation of the object
     public Vector3 handRotation;
 
+    private bool levitating;
+
+    private void FixedUpdate()
+    {
+        if (levitating)
+        {
+            transform.position += transform.forward * Time.deltaTime;
+        }
+    }
+
     public override void Interact()
     {
         base.Interact();
         if (isLiftable)
         {
-            PickUp();
+            StartCoroutine(PickUpAnim());
         }
         
     }
@@ -72,4 +82,12 @@ public class LiftableObjects : InteractableObj
         itemRigid.AddForce(itemGuide.transform.forward * 200);
     }
 
+    IEnumerator PickUpAnim()
+    {
+        levitating = true;
+        Debug.Log("levitate");
+        yield return new WaitForSeconds(1f);
+        levitating = false;
+        PickUp();
+    }
 }
