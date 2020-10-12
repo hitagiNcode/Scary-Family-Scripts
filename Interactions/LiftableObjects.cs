@@ -23,12 +23,13 @@ public class LiftableObjects : InteractableObj
     public Vector3 handRotation;
 
     private bool levitating;
+    private int upForce = 11;
 
     private void FixedUpdate()
     {
         if (levitating)
         {
-            transform.position += transform.forward * Time.deltaTime;
+            itemRigid.AddForce(Vector3.up * upForce);
         }
     }
 
@@ -85,7 +86,7 @@ public class LiftableObjects : InteractableObj
     IEnumerator PickUpAnim()
     {
         levitating = true;
-        Debug.Log("levitate");
+        
         yield return new WaitForSeconds(1f);
         levitating = false;
         PickUp();
