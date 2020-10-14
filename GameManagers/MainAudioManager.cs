@@ -6,6 +6,7 @@ public class MainAudioManager : MonoBehaviour
 {
     public AudioClip wrongItem;
     public AudioClip rightItem;
+    public AudioClip pickUpAudio;
 
 
     public static MainAudioManager Instance { get; private set; }
@@ -40,5 +41,10 @@ public class MainAudioManager : MonoBehaviour
     public void PlayRightItem()
     {
         m_audioSource.PlayOneShot(rightItem, 0.6f);
+    }
+
+    public void PlayPickUpAudio()
+    {
+        m_audioSource.PlayOneShot(pickUpAudio, 0.4f);
     }
 }

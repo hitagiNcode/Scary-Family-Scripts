@@ -52,6 +52,7 @@ public class LiftableObjects : InteractableObj
     private void PickUp()
     {
         RayCaster.instance.playerAnimator.SetBool("HoldingItem", true);
+        MainAudioManager.Instance.PlayPickUpAudio();
         itemRigid.useGravity = false;
         itemRigid.isKinematic = true;
         itemSelf.transform.parent = itemGuide.transform;
