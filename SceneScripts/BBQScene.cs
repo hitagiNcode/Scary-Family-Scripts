@@ -28,7 +28,7 @@ public class BBQScene : MonoBehaviour
     void Start()
     {
         SetGameObjects();
-
+        
     }
 
     // Update is called once per frame
@@ -82,6 +82,7 @@ public class BBQScene : MonoBehaviour
         sceneCharacter.SetActive(false);
         sceneMainChar.transform.position = agentStartPoint;
         sceneMainChar.SetActive(true);
+        TipsManager.Instance.SendTipToPlayer("Time to mess with BBQ!");
     }
 
     public void CompleteLevel()

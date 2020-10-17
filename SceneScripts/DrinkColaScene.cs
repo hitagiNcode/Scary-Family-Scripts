@@ -27,6 +27,7 @@ public class DrinkColaScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         vomitSystem.SetActive(false);
         secondCutScene.SetActive(false);
         sceneMainChar.SetActive(false);
@@ -85,6 +86,7 @@ public class DrinkColaScene : MonoBehaviour
         SceneCharacter.SetActive(false);
         sceneMainChar.transform.position = agentStartPoint;
         sceneMainChar.SetActive(true);
+        TipsManager.Instance.SendTipToPlayer("Let's mess with his drink!");
     }
 
     public void DropCola()

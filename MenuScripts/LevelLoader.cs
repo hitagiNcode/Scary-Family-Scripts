@@ -32,6 +32,8 @@ public class LevelLoader : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        
     }
 
 
@@ -77,27 +79,28 @@ public class LevelLoader : MonoBehaviour
     public void SelectSceneAndStartGame(int scenenumber)
     {
         currentSceneNumber = scenenumber;
+        PlayerPrefs.SetInt("SelectedScene", scenenumber);
         switch (scenenumber)
         {
             case 0:
                 selectedCutScene = CutScene.NoScene;
-                currentSceneNumber = 0;
+                
                 StartGameLevel();
                 
                 break;
             case 1:
                 selectedCutScene = CutScene.DrinkCola;
-                currentSceneNumber = 1;
+                
                 StartGameLevel();
                 break;
             case 2:
                 selectedCutScene = CutScene.NewspaperRush;
-                currentSceneNumber = 2;
+                
                 StartGameLevel();
                 break;
             case 3:
                 selectedCutScene = CutScene.BBQFire;
-                currentSceneNumber = 3;
+                
                 StartGameLevel();
                 break;
             default:
@@ -111,7 +114,7 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadAndStartNextLevel()
     {
-        SelectSceneAndStartGame(currentSceneNumber + 1);
+        SelectSceneAndStartGame(PlayerPrefs.GetInt("SelectedScene") + 1);
     }
     public void LoadMainMenu()
     {
@@ -121,6 +124,6 @@ public class LevelLoader : MonoBehaviour
 
     public void ReplaySameLevel()
     {
-        SelectSceneAndStartGame(currentSceneNumber);
+        SelectSceneAndStartGame(PlayerPrefs.GetInt("SelectedScene"));
     }
 }

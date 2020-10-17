@@ -41,7 +41,7 @@ public class NewsPaperScene : MonoBehaviour
     void Start()
     {
         SetGameObjects();
-
+        
     }
 
     // Update is called once per frame
@@ -87,6 +87,7 @@ public class NewsPaperScene : MonoBehaviour
         sceneCharacter.SetActive(false);
         sceneMainChar.transform.position = agentStartPoint;
         sceneMainChar.SetActive(true);
+        TipsManager.Instance.SendTipToPlayer("Set the trap, ring the bell!");
     }
 
     public void ReleaseNewsPaper()
