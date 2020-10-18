@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
-    public enum CutScene { NoScene, DrinkCola, NewspaperRush, BBQFire};
+    public enum CutScene { NoScene, DrinkCola, NewspaperRush, BBQFire, PianoScene};
     public CutScene selectedCutScene = CutScene.DrinkCola;
 
     public static LevelLoader Instance { get; private set; }
@@ -101,6 +101,10 @@ public class LevelLoader : MonoBehaviour
             case 3:
                 selectedCutScene = CutScene.BBQFire;
                 
+                StartGameLevel();
+                break;
+            case 4:
+                selectedCutScene = CutScene.PianoScene;
                 StartGameLevel();
                 break;
             default:

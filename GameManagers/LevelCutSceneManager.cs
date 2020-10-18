@@ -27,6 +27,11 @@ public class LevelCutSceneManager : MonoBehaviour
                 PlayerPrefs.SetInt("SelectedScene", 3);
                 Debug.Log("scene bbqfire is loaded");
                 break;
+            case LevelLoader.CutScene.PianoScene:
+                CutSceneHolder.GetComponent<PianoScene>().enabled = true;
+                PlayerPrefs.SetInt("SelectedScene", 4);
+                Debug.Log("scene piano is loaded");
+                break;
             default:
                 Debug.Log("Scene Secilmedi");
                 PlayerPrefs.SetInt("SelectedScene", 0);
