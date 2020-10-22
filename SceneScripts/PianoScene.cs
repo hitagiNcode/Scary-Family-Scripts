@@ -13,8 +13,11 @@ public class PianoScene : MonoBehaviour
     private NpcControl mainCharController;
 
     //Special to scene
-    
 
+    public GameObject bucket;
+    public GameObject waterOfBucket;
+    public GameObject particlesOfWater;
+    public bool bucketOnSpot = false;
     
     
 
@@ -54,5 +57,13 @@ public class PianoScene : MonoBehaviour
     {
         LevelCompletePanel.Instance.completeLevel();
         LevelCompletePanel.Instance.GoldEarnedAmount(100);
+    }
+
+    public void FillBucket()
+    {
+        if (bucketOnSpot)
+        {
+            waterOfBucket.SetActive(true);
+        }
     }
 }
