@@ -25,7 +25,7 @@ public class PlaceForBucket : InteractableObj
         }
         else
         {
-            TipsManager.Instance.SendTipToPlayer("You need a bucket.");
+            TipsManager.Instance.SendTipToPlayer("You need a bucket");
             MainAudioManager.Instance.PlayWrongItem();
         }
 
