@@ -13,7 +13,7 @@ public class PianoScene : MonoBehaviour
     private NpcControl mainCharController;
 
     //Special to scene
-
+    public GameObject waterOfPiano;
     public GameObject bucket;
     public GameObject waterOfBucket;
     public GameObject particlesOfWater;
@@ -33,6 +33,7 @@ public class PianoScene : MonoBehaviour
     void Update()
     {
         
+        
     }
 
     private void SetGameObjects()
@@ -41,6 +42,7 @@ public class PianoScene : MonoBehaviour
         firstCutScene.SetActive(true);
         secondCutScene.SetActive(false);
         sceneMainChar.SetActive(false);
+        sceneCharacter.SetActive(true);
         mainCharController = sceneMainChar.GetComponent<NpcControl>();
         mainCharController.isCoroutineStarted = false;
     }
@@ -61,9 +63,21 @@ public class PianoScene : MonoBehaviour
 
     public void FillBucket()
     {
-        if (bucketOnSpot)
-        {
-            waterOfBucket.SetActive(true);
-        }
+        StartCoroutine(fillBucket());
+    }
+    
+    IEnumerator fillBucket()
+    {
+        //particlesOfWater.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        //particlesOfWater.SetActive(false);
+        waterOfBucket.SetActive(true);
+        transform.gameObject.tag = "Interactable";
+        bucket.GetComponent<BoxCollider>().enabled = true;
+    }
+
+    public void FillPiano()
+    {
+        waterOfPiano.SetActive(true);
     }
 }

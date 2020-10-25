@@ -20,6 +20,7 @@ public class PlaceForBucket : InteractableObj
             TipsManager.Instance.SendTipToPlayer("Open the water, now.");
             MainAudioManager.Instance.PlayRightItem();
             transform.gameObject.tag = "Untagged";
+            placeBucket();
             script.bucketOnSpot = true;
             RayCaster.instance.SetPlayerhandEmpty();
         }
@@ -29,5 +30,12 @@ public class PlaceForBucket : InteractableObj
             MainAudioManager.Instance.PlayWrongItem();
         }
 
+    }
+
+    void placeBucket()
+    {
+        script.bucket.transform.position = transform.position;
+        script.bucket.transform.rotation = transform.rotation;
+        script.bucket.transform.parent = null;
     }
 }
