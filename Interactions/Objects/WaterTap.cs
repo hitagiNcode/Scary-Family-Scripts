@@ -7,7 +7,15 @@ public class WaterTap : InteractableObj
     public GameObject waterParticle;
     private bool waterBool;
     public PianoScene script;
+    public AudioClip waterClipOpen;
+    public AudioClip waterClipClose;
+
+    private AudioSource m_source;
     // Start is called before the first frame update
+    void Start()
+    {
+        m_source = GetComponent<AudioSource>();
+    }
 
     public override void Interact()
     {
@@ -31,10 +39,12 @@ public class WaterTap : InteractableObj
         if (!waterBool)
         {
             waterParticle.SetActive(true);
+            m_source.PlayOneShot(waterClipOpen, 0.4f);
         }
         if (waterBool)
         {
             waterParticle.SetActive(false);
+            m_source.PlayOneShot(waterClipClose, 0.4f);
         }
     }
 
