@@ -10,6 +10,8 @@ public class WaterTap : InteractableObj
     public AudioClip waterClipOpen;
     public AudioClip waterClipClose;
 
+    private bool coroProtector = false;
+
     private AudioSource m_source;
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,7 @@ public class WaterTap : InteractableObj
         }
         else
         {
-            particleVisibility();
+            StartCoroutine(waterTap());
         }
 
         
@@ -50,6 +52,22 @@ public class WaterTap : InteractableObj
         {
             waterParticle.SetActive(false);
             m_source.PlayOneShot(waterClipClose, 0.4f);
+        }
+    }
+
+    IEnumerator waterTap()
+    {
+        if (!coroProtector)
+        {
+            coroProtector = true;
+            waterParticle.SetActive(true);
+            m_source.PlayOneShot(waterClipOpen, 0.3f);
+            yield return new WaitForSeconds(2f);
+
+            m_source.PlayOneShot(waterClipClose, 0.3f);
+            yield return new WaitForSeconds(1f);
+            waterParticle.SetActive(false);
+            coroProtector = false;
         }
     }
 
