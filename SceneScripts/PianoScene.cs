@@ -16,8 +16,9 @@ public class PianoScene : MonoBehaviour
     public GameObject waterOfPiano;
     public GameObject bucket;
     public GameObject waterOfBucket;
-    public GameObject particlesOfWater;
+    public WaterTap _waterTap;
     public bool bucketOnSpot = false;
+    private bool waterInPiano = false;
     
     
 
@@ -32,7 +33,16 @@ public class PianoScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (waterInPiano)
+        {
+            mainCharController.GoToScenePos(agentMovePos.transform);
+        }
+        if (waterInPiano && mainCharController.pathReached && !mainCharController.playerIsCaught)
+        {
+            secondCutScene.SetActive(true);
+            sceneMainChar.SetActive(false);
+            sceneCharacter.SetActive(true);
+        }
         
     }
 
@@ -68,9 +78,9 @@ public class PianoScene : MonoBehaviour
     
     IEnumerator fillBucket()
     {
-        //particlesOfWater.SetActive(true);
+        _waterTap.particleVisibility();
         yield return new WaitForSeconds(2f);
-        //particlesOfWater.SetActive(false);
+        _waterTap.particleVisibility();
         waterOfBucket.SetActive(true);
         transform.gameObject.tag = "Interactable";
         bucket.GetComponent<BoxCollider>().enabled = true;
@@ -79,5 +89,6 @@ public class PianoScene : MonoBehaviour
     public void FillPiano()
     {
         waterOfPiano.SetActive(true);
+        waterInPiano = true;
     }
 }

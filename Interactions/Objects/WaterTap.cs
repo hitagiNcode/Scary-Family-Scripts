@@ -15,6 +15,7 @@ public class WaterTap : InteractableObj
     void Start()
     {
         m_source = GetComponent<AudioSource>();
+        waterParticle.SetActive(false);
     }
 
     public override void Interact()
@@ -29,23 +30,28 @@ public class WaterTap : InteractableObj
         {
             script.FillBucket();
         }
+        else
+        {
+            particleVisibility();
+        }
 
-        //particleVisibility();
+        
     }
 
-    void particleVisibility()
+    public void particleVisibility()
     {
         waterBool = !waterBool;
-        if (!waterBool)
+        if (waterBool)
         {
             waterParticle.SetActive(true);
             m_source.PlayOneShot(waterClipOpen, 0.4f);
         }
-        if (waterBool)
+        if (!waterBool)
         {
             waterParticle.SetActive(false);
             m_source.PlayOneShot(waterClipClose, 0.4f);
         }
     }
+
 
 }
