@@ -68,7 +68,7 @@ public class PianoScene : MonoBehaviour
     public void completeLevel()
     {
         LevelCompletePanel.Instance.completeLevel();
-        LevelCompletePanel.Instance.GoldEarnedAmount(100);
+        LevelCompletePanel.Instance.GoldEarnedAmount(120);
     }
 
     public void FillBucket()
