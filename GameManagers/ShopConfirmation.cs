@@ -11,17 +11,13 @@ public class ShopConfirmation : MonoBehaviour
 
     public Text priceText;
 
-    public Button _button;
-
-    // Start is called before the first frame update
-    void Start()
+    public void SetDisplay()
     {
+        itemImg.sprite = _data.artWork;
+
+        priceText.text = _data.price.ToString();
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

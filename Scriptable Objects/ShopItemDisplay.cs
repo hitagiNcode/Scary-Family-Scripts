@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ShopItemDisplay : MonoBehaviour
 {
+    public ShopManager _master;
+
     public ShopItem _data;
 
     public Image itemImg;
@@ -38,7 +40,7 @@ public class ShopItemDisplay : MonoBehaviour
 
     private void BuyItem()
     {
-
+        _master.ShopItemClicked(_data);
     }
    
 }

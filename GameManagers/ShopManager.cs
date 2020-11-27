@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
+    public ShopConfirmation _confirmBox;
     public GameObject confirmPanel;
     public GameObject coinPanel;
     private GridLayoutGroup _coingrid;
+
+    // Currently Selected Item in ShopConfirm
+    private ShopItem _currentItem;
 
     public GameObject itemPrefab;
 
@@ -17,7 +21,7 @@ public class ShopManager : MonoBehaviour
     public ShopItem[] coinItems;
     public ShopItem[] diamondItems;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         ShowCoinPanel();
@@ -55,6 +59,7 @@ public class ShopManager : MonoBehaviour
         GameObject newObj = GameObject.Instantiate(itemPrefab, _coingrid.transform);
 
         ShopItemDisplay objDisplay = newObj.GetComponent<ShopItemDisplay>();
+        objDisplay._master = this;
         objDisplay._inheritedSource = _mainAudio;
         objDisplay._data = _item;
         objDisplay.SetDisplay();
@@ -66,6 +71,26 @@ public class ShopManager : MonoBehaviour
         {
             CreateItem(coinItems[i]);
         }
+    }
+
+    public void OrderConfirmed()
+    {
+        confirmPanel.SetActive(false);
+        //_currentItem  do something
+        Debug.Log("You bought: " + _currentItem.name + " for "+_currentItem.price.ToString());
+    }
+
+    public void ShopItemClicked(ShopItem itemData)
+    {
+        CreateShopConfirmBox(itemData);
+        _currentItem = itemData;
+    }
+
+    private void CreateShopConfirmBox(ShopItem item)
+    {
+        confirmPanel.SetActive(true);
+        _confirmBox._data = item;
+        _confirmBox.SetDisplay();
     }
 
 }
