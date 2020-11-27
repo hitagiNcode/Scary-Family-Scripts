@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-
+    public GameObject confirmPanel;
     public GameObject coinPanel;
     private GridLayoutGroup _coingrid;
 
@@ -20,22 +20,34 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coinPanel.SetActive(true);
+        ShowCoinPanel();
         _coingrid = coinPanel.GetComponent<GridLayoutGroup>();
 
         FillCoinPanel();
+        
     }
 
     
     private void HideAllPanels()
     {
-        coinPanel.SetActive(true);
+        coinPanel.SetActive(false);
+        //confirmPanel.SetActive(false);
     }
 
     public void ShowCoinPanel()
     {
         HideAllPanels();
         coinPanel.SetActive(true);
+    }
+
+    public void ShowConfirmPanel()
+    {
+        confirmPanel.SetActive(true);
+    }
+
+    public void CloseConfirmPanel()
+    {
+        confirmPanel.SetActive(false);
     }
 
     private void CreateItem(ShopItem _item)
