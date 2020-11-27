@@ -11,6 +11,9 @@ public class ShopManager : MonoBehaviour
 
     public GameObject itemPrefab;
 
+    public AudioSource _mainAudio;
+
+    //Put the scriptableobjects in this arrays to show them in panel
     public ShopItem[] coinItems;
     public ShopItem[] diamondItems;
 
@@ -19,6 +22,8 @@ public class ShopManager : MonoBehaviour
     {
         coinPanel.SetActive(true);
         _coingrid = coinPanel.GetComponent<GridLayoutGroup>();
+
+        FillCoinPanel();
     }
 
     
@@ -35,6 +40,20 @@ public class ShopManager : MonoBehaviour
 
     private void CreateItem(ShopItem _item)
     {
-       
+        GameObject newObj = GameObject.Instantiate(itemPrefab, _coingrid.transform);
+
+        ShopItemDisplay objDisplay = newObj.GetComponent<ShopItemDisplay>();
+        objDisplay._inheritedSource = _mainAudio;
+        objDisplay._data = _item;
+        objDisplay.SetDisplay();
     }
+
+    private void FillCoinPanel()
+    {
+        for (int i = 0; i < coinItems.Length; i++)
+        {
+            CreateItem(coinItems[i]);
+        }
+    }
+
 }
