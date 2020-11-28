@@ -24,6 +24,7 @@ public class ShopManager : MonoBehaviour
     
     void Start()
     {
+        confirmPanel.SetActive(false);
         ShowCoinPanel();
         _coingrid = coinPanel.GetComponent<GridLayoutGroup>();
 

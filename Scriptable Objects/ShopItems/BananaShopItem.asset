@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BananaShopItem
   m_EditorClassIdentifier: 
   itemId: 3
-  artWork: {fileID: 0}
+  artWork: {fileID: 21300000, guid: 8ee8b14c291b85e4881b369a82b59d34, type: 3}
   itemName: Banana
   price: 80

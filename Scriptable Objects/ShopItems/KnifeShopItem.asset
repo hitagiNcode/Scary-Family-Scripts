@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: KnifeShopItem
   m_EditorClassIdentifier: 
   itemId: 9
-  artWork: {fileID: 0}
+  artWork: {fileID: 21300000, guid: c9fadee9965e7a742b112f1db8db2f38, type: 3}
   itemName: Knife
   price: 50

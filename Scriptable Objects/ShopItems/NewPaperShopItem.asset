@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: NewPaperShopItem
   m_EditorClassIdentifier: 
   itemId: 13
-  artWork: {fileID: 0}
+  artWork: {fileID: 21300000, guid: 93108cd8b5141fe48b8586414d3e3f7e, type: 3}
   itemName: Newspaper
   price: 120

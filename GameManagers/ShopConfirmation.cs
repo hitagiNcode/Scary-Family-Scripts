@@ -13,11 +13,15 @@ public class ShopConfirmation : MonoBehaviour
 
     public Button _button;
 
+    public Text nameText;
+
     public void SetDisplay()
     {
         itemImg.sprite = _data.artWork;
 
         priceText.text = _data.price.ToString();
+
+        nameText.text = _data.itemName;
 
         if (PlayerPrefs.GetInt("Gold", 0) < _data.price) 
         {

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BellShopItem
   m_EditorClassIdentifier: 
   itemId: 1
-  artWork: {fileID: 0}
-  itemName: 1
+  artWork: {fileID: 21300000, guid: 58674d460a76ccf4fbfc6a9f6181453c, type: 3}
+  itemName: Bell
   price: 90
