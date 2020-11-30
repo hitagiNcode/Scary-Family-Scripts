@@ -56,6 +56,7 @@ public class MenuManager : MonoBehaviour
 
    public void TurnPanelOn(GameObject panel)
     {
+        CharacterPanelOFF();
         panel.SetActive(true);
         settingsBut.SetActive(false);
         m_backBut.SetActive(true);
