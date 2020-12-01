@@ -57,7 +57,7 @@ public class LevelLoader : MonoBehaviour
 
     public void StartGameLevel()
     {
-        StartCoroutine(LoadAsynchoronously(1));
+        StartCoroutine(LoadAsynchoronously(2));
         Time.timeScale = 1f;
     }
 
@@ -122,7 +122,7 @@ public class LevelLoader : MonoBehaviour
     }
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         Time.timeScale = 1f;
     }
 
