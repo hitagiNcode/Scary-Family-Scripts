@@ -25,7 +25,7 @@ public class MenuManager : MonoBehaviour
         careerPanel.SetActive(false);
         coinShopPanel.SetActive(false);
         valuesPanel.SetActive(false);
-        VersionText.text = "V" + Application.version;
+        VersionText.text = "v" + Application.version;
 
     }
 
