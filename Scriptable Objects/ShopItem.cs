@@ -6,10 +6,11 @@ public class ShopItem : ScriptableObject
 {
     public int itemId;
 
-    public Sprite artWork;
+    public Sprite artWork = null;
 
     public string itemName;
 
     public int price;
+
     
 }
