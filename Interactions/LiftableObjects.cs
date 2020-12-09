@@ -13,7 +13,7 @@ public class LiftableObjects : InteractableObj
     public Rigidbody itemRigid;
 
 
-    public Image itemImg;
+    public ShopItem _data;
 
     //Show the hand guide of the player
     public GameObject itemGuide;

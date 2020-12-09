@@ -75,6 +75,7 @@ public class RayCaster : MonoBehaviour
 
                     if (currentObj.isLiftable)
                     {
+                        
                         if (handObj != null)
                         {
                             handObj.Throw();
