@@ -75,7 +75,7 @@ public class RayCaster : MonoBehaviour
 
                     if (currentObj.isLiftable)
                     {
-                        
+                        Inventory.instance.AddItem(currentObj._data);
                         if (handObj != null)
                         {
                             handObj.Throw();

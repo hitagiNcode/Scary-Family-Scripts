@@ -12,9 +12,6 @@ public class LiftableObjects : InteractableObj
     [HideInInspector]
     public Rigidbody itemRigid;
 
-
-    public ShopItem _data;
-
     //Show the hand guide of the player
     public GameObject itemGuide;
     //Hand position of the object

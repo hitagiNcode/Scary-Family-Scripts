@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractableObj : MonoBehaviour
 {
+    public ShopItem _data;
     public int itemId;
     public bool isLiftable;
     public GameObject gameObjSelf;
