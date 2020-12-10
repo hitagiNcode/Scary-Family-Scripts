@@ -78,7 +78,7 @@ public class RayCaster : MonoBehaviour
                         Inventory.instance.AddItem(currentObj._data);
                         if (handObj != null)
                         {
-                            handObj.Throw();
+                            ThrowGameObject();
                         }
                         handObj = currentObj;
                     }
@@ -124,7 +124,7 @@ public class RayCaster : MonoBehaviour
     {
         if (handObj != null)
         {
-            handObj.Throw();
+            ThrowGameObject();
         }
         handObj = null;
         
@@ -156,5 +156,11 @@ public class RayCaster : MonoBehaviour
     {
         handObj = null;
         playerAnimator.SetBool("HoldingItem", false);
+    }
+
+    private void ThrowGameObject()
+    {
+        handObj.Throw();
+        Inventory.instance.RemoveItem(handObj._data);
     }
 }

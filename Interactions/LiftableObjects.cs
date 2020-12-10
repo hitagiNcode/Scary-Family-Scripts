@@ -55,7 +55,7 @@ public class LiftableObjects : InteractableObj
         itemSelf.transform.parent = itemGuide.transform;
         itemSelf.transform.localPosition = handPosition;
         itemSelf.transform.localEulerAngles = handRotation;
-        itemSelf.GetComponent<BoxCollider>().enabled = false;
+        
     }
 
     void ThrowObj()
@@ -83,6 +83,7 @@ public class LiftableObjects : InteractableObj
 
     IEnumerator PickUpAnim()
     {
+        itemSelf.GetComponent<BoxCollider>().enabled = false;
         levitating = true;
         
         yield return new WaitForSeconds(1f);
