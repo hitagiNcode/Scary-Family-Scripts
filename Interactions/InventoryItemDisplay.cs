@@ -27,6 +27,10 @@ public class InventoryItemDisplay : MonoBehaviour
 
     private void HoldItem()
     {
+        if (RayCaster.instance.IsMyhandEmpty())
+        {
+            StartCoroutine(RayCaster.instance.BringUpInventoryItem(_script));
+        }
         Inventory.instance.ChangeHoldingItem(_script);
     }
 

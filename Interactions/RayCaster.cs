@@ -164,6 +164,17 @@ public class RayCaster : MonoBehaviour
             return false;
     }
 
+    public bool IsMyhandEmpty()
+    {
+        if (handObj == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public GameObject GetHandObject() 
     {
@@ -196,8 +207,17 @@ public class RayCaster : MonoBehaviour
         playerAnimator.SetBool("HoldingItem", true);
         GetHandObject().SetActive(false);
         _obj.GetGameObj().SetActive(true);
-        //.GetComponent<MeshRenderer>().enabled = false;
+        
         handObj = _obj;
     }
 
+    public IEnumerator BringUpInventoryItem(InteractableObj _obj)
+    {
+
+        playerAnimator.SetBool("HoldingItem", false);
+        yield return new WaitForSeconds(1f);
+        playerAnimator.SetBool("HoldingItem", true);
+        _obj.GetGameObj().SetActive(true);
+        handObj = _obj;
+    }
 }
