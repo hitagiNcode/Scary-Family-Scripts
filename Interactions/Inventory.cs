@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
 
     //public ShopItem[] currentInventory = new ShopItem[3];
 
-    List<InventoryItem> _currentInv = new List<InventoryItem>();
+    public List<InventoryItem> _currentInv = new List<InventoryItem>();
 
 
     private void Start()
@@ -62,9 +62,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void ChangeHoldingItem()
+    public void ChangeHoldingItem(GameObject _obj)
     {
-        
+       
+
     }
 
 
@@ -80,6 +81,8 @@ public class Inventory : MonoBehaviour
         yield return new WaitForSeconds(1f);
         _obj.SetActive(true);
     }
+
+   
 }
 
 public class InventoryItem

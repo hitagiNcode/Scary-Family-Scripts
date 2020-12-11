@@ -7,7 +7,7 @@ public class InteractableObj : MonoBehaviour
     public ShopItem _data;
     public int itemId;
     public bool isLiftable;
-    public GameObject gameObjSelf;
+    private GameObject gameObjSelf;
 
     public virtual void Interact()
     {

@@ -68,6 +68,7 @@ public class RayCaster : MonoBehaviour
 
             if (isClicked == true)
             {
+                Debug.Log(Inventory.instance._currentInv.Count);
                 if (hit.collider.CompareTag("Interactable"))
                 {
                     //Calls current obj script and interacts
@@ -75,12 +76,29 @@ public class RayCaster : MonoBehaviour
 
                     if (currentObj.isLiftable)
                     {
-                        Inventory.instance.AddItem(currentObj._data);
-                        if (handObj != null)
+                        if (Inventory.instance._currentInv.Count > 3)
                         {
-                            ThrowGameObject();
+                            TipsManager.Instance.SendTipToPlayer("I can't carry more than 3 items");
+                            
+                            //ThrowGameObject();
+                            //handObj = currentObj;
                         }
-                        handObj = currentObj;
+                        else
+                        {
+                            if (handObj != null)
+                            {
+                                Debug.Log("Change item");
+                                StartCoroutine(WaitForItemChange(currentObj));
+                                Inventory.instance.AddItem(currentObj._data);
+                            }
+                            else
+                            {
+                                Inventory.instance.AddItem(currentObj._data);
+                                handObj = currentObj;
+                            }
+                            
+                        }
+
                     }
 
                     currentObj.Interact();
@@ -152,6 +170,8 @@ public class RayCaster : MonoBehaviour
         return handObj.GetGameObj();
     }
 
+
+
     public void SetPlayerhandEmpty()
     {
         handObj = null;
@@ -163,4 +183,17 @@ public class RayCaster : MonoBehaviour
         handObj.Throw();
         Inventory.instance.RemoveItem(handObj._data);
     }
+
+
+    IEnumerator WaitForItemChange(InteractableObj _obj)
+    {
+        
+        playerAnimator.SetBool("HoldingItem", false);
+        yield return new WaitForSeconds(0.3f);
+        playerAnimator.SetBool("HoldingItem", true);
+        GetHandObject().SetActive(false);
+        _obj.GetGameObj().SetActive(true);
+        handObj = _obj;
+    }
+
 }
