@@ -32,8 +32,9 @@ public class LiftableObjects : InteractableObj
 
     public override void Interact()
     {
+        
         base.Interact();
-        if (isLiftable)
+        if (isLiftable )
         {
             StartCoroutine(PickUpAnim());
         }

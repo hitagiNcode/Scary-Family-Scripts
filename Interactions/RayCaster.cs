@@ -68,7 +68,7 @@ public class RayCaster : MonoBehaviour
 
             if (isClicked == true)
             {
-                Debug.Log(Inventory.instance._currentInv.Count);
+                
                 if (hit.collider.CompareTag("Interactable"))
                 {
                     //Calls current obj script and interacts
@@ -76,7 +76,7 @@ public class RayCaster : MonoBehaviour
 
                     if (currentObj.isLiftable)
                     {
-                        if (Inventory.instance._currentInv.Count > 3)
+                        if (Inventory.instance._currentInv.Count >= 3)
                         {
                             TipsManager.Instance.SendTipToPlayer("I can't carry more than 3 items");
                             
@@ -87,7 +87,7 @@ public class RayCaster : MonoBehaviour
                         {
                             if (handObj != null)
                             {
-                                Debug.Log("Change item");
+                                
                                 StartCoroutine(WaitForItemChange(currentObj));
                                 Inventory.instance.AddItem(currentObj._data);
                             }
