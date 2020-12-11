@@ -20,8 +20,9 @@ public class RayCaster : MonoBehaviour
     public Image AimCursor;
     
     public Button interactButton;
-    
-    
+
+
+    public bool permissionToLift = true;
 
     //Privates
     //This boolean is for making the AimCursor color back to white only once
@@ -79,7 +80,7 @@ public class RayCaster : MonoBehaviour
                         if (Inventory.instance._currentInv.Count >= 3)
                         {
                             TipsManager.Instance.SendTipToPlayer("I can't carry more than 3 items");
-                            
+                            permissionToLift = false;
                             //ThrowGameObject();
                             //handObj = currentObj;
                         }
@@ -87,7 +88,7 @@ public class RayCaster : MonoBehaviour
                         {
                             if (handObj != null)
                             {
-                                
+                                Debug.Log("sikeyim");
                                 StartCoroutine(WaitForItemChange(currentObj));
                                 Inventory.instance.AddItem(currentObj._data);
                             }
@@ -180,6 +181,7 @@ public class RayCaster : MonoBehaviour
 
     private void ThrowGameObject()
     {
+        permissionToLift = true;
         handObj.Throw();
         Inventory.instance.RemoveItem(handObj._data);
     }
@@ -189,7 +191,7 @@ public class RayCaster : MonoBehaviour
     {
         
         playerAnimator.SetBool("HoldingItem", false);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
         playerAnimator.SetBool("HoldingItem", true);
         GetHandObject().SetActive(false);
         _obj.GetGameObj().SetActive(true);

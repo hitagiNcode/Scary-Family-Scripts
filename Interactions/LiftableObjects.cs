@@ -34,9 +34,10 @@ public class LiftableObjects : InteractableObj
     {
         
         base.Interact();
-        if (isLiftable )
+        if (isLiftable && RayCaster.instance.permissionToLift)
         {
-            StartCoroutine(PickUpAnim());
+            
+                StartCoroutine(PickUpAnim());
         }
         
     }

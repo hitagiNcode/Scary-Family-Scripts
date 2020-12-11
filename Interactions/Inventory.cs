@@ -30,13 +30,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(ShopItem _item)
     {
-        if (_currentInv.Count > 3)
-        {
-            TipsManager.Instance.SendTipToPlayer("I can't carry more than 3 items");
-            //soundmanager put inventory full sound
-        }
-        else
-        {
+       
             GameObject newObj = GameObject.Instantiate(itemPrefab, _inventoryGrid.transform);
             StartCoroutine(WaitForHold(newObj));
             _currentInv.Add(new InventoryItem(newObj, _item));  
@@ -44,9 +38,6 @@ public class Inventory : MonoBehaviour
             objDisplay._master = this;
             objDisplay._data = _item;
             objDisplay.SetDisplay();
-                
-        }
-
     }
 
     public void RemoveItem(ShopItem _item)
