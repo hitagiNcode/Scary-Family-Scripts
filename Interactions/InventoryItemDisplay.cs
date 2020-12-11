@@ -13,17 +13,21 @@ public class InventoryItemDisplay : MonoBehaviour
 
     private MultiImageButton _button;
 
+    public InteractableObj _script;
 
-    public void SetDisplay()
+    
+
+    public void SetDisplay(InteractableObj _asdObj)
     {
         itemImg.sprite = _data.artWork;
         _button = GetComponent<MultiImageButton>();
         _button.onClick.AddListener(HoldItem);
+        _script = _asdObj;
     }
 
     private void HoldItem()
     {
-
+        Inventory.instance.ChangeHoldingItem(_script);
     }
 
 }

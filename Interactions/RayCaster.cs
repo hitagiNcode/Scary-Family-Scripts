@@ -88,13 +88,13 @@ public class RayCaster : MonoBehaviour
                         {
                             if (handObj != null)
                             {
-                                Debug.Log("sikeyim");
+                                
                                 StartCoroutine(WaitForItemChange(currentObj));
-                                Inventory.instance.AddItem(currentObj._data);
+                                Inventory.instance.AddItem(currentObj._data, currentObj);
                             }
                             else
                             {
-                                Inventory.instance.AddItem(currentObj._data);
+                                Inventory.instance.AddItem(currentObj._data, currentObj);
                                 handObj = currentObj;
                             }
                             
@@ -176,6 +176,7 @@ public class RayCaster : MonoBehaviour
     public void SetPlayerhandEmpty()
     {
         handObj = null;
+        permissionToLift = true;
         playerAnimator.SetBool("HoldingItem", false);
     }
 
@@ -187,7 +188,7 @@ public class RayCaster : MonoBehaviour
     }
 
 
-    IEnumerator WaitForItemChange(InteractableObj _obj)
+    public IEnumerator WaitForItemChange(InteractableObj _obj)
     {
         
         playerAnimator.SetBool("HoldingItem", false);
@@ -195,6 +196,7 @@ public class RayCaster : MonoBehaviour
         playerAnimator.SetBool("HoldingItem", true);
         GetHandObject().SetActive(false);
         _obj.GetGameObj().SetActive(true);
+        //.GetComponent<MeshRenderer>().enabled = false;
         handObj = _obj;
     }
 

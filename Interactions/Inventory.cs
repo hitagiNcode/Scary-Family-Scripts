@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public void AddItem(ShopItem _item)
+    public void AddItem(ShopItem _item, InteractableObj _script)
     {
        
             GameObject newObj = GameObject.Instantiate(itemPrefab, _inventoryGrid.transform);
@@ -37,7 +37,7 @@ public class Inventory : MonoBehaviour
             InventoryItemDisplay objDisplay = newObj.GetComponent<InventoryItemDisplay>();
             objDisplay._master = this;
             objDisplay._data = _item;
-            objDisplay.SetDisplay();
+            objDisplay.SetDisplay(_script);
     }
 
     public void RemoveItem(ShopItem _item)
@@ -53,10 +53,12 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void ChangeHoldingItem(GameObject _obj)
-    {
-       
 
+    public void ChangeHoldingItem(InteractableObj _obj)
+    {
+
+        StartCoroutine(RayCaster.instance.WaitForItemChange(_obj));
+        
     }
 
 
