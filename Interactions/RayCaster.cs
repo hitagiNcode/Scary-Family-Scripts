@@ -194,8 +194,9 @@ public class RayCaster : MonoBehaviour
     private void ThrowGameObject()
     {
         permissionToLift = true;
+        Inventory.instance.RemoveItem(handObj.GetGameObj());
         handObj.Throw();
-        Inventory.instance.RemoveItem(handObj._data);
+        
     }
 
 

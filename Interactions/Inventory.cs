@@ -33,23 +33,33 @@ public class Inventory : MonoBehaviour
        
             GameObject newObj = GameObject.Instantiate(itemPrefab, _inventoryGrid.transform);
             StartCoroutine(WaitForHold(newObj));
-            _currentInv.Add(new InventoryItem(newObj, _item));  
+            _currentInv.Add(new InventoryItem(newObj, _item, _script.GetGameObj()));  
             InventoryItemDisplay objDisplay = newObj.GetComponent<InventoryItemDisplay>();
             objDisplay._master = this;
             objDisplay._data = _item;
             objDisplay.SetDisplay(_script);
     }
 
-    public void RemoveItem(ShopItem _item)
+    public void RemoveItem(GameObject _obj)
     {
         for (int i = 0; i < _currentInv.Count; i++)
         {
-            if (_currentInv[i]._data.itemId == _item.itemId)
+            if (GameObject.ReferenceEquals(_currentInv[i]._realObj, _obj))
             {
+                Debug.Log("first and second are the same");
                 StartCoroutine(WaitForDestroy(_currentInv[i]._slotObj));
                 _currentInv.Remove(_currentInv[i]);
                 break;
             }
+                
+
+
+            /*if (_currentInv[i]._data.itemId == _item.itemId)
+            {
+                StartCoroutine(WaitForDestroy(_currentInv[i]._slotObj));
+                _currentInv.Remove(_currentInv[i]);
+                break;
+            }*/
         }
     }
 
@@ -82,11 +92,13 @@ public class InventoryItem
 {
     public GameObject _slotObj;
     public ShopItem _data;
+    public GameObject _realObj;
 
-    public InventoryItem(GameObject _obj, ShopItem _dat)
+    public InventoryItem(GameObject _obj, ShopItem _dat,GameObject _rObj)
     {
         _slotObj = _obj;
         _data = _dat;
+        _realObj = _rObj;
     }
 
 }
