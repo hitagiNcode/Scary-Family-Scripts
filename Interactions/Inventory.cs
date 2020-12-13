@@ -46,7 +46,7 @@ public class Inventory : MonoBehaviour
         {
             if (GameObject.ReferenceEquals(_currentInv[i]._realObj, _obj))
             {
-                Debug.Log("first and second are the same");
+                
                 StartCoroutine(WaitForDestroy(_currentInv[i]._slotObj));
                 _currentInv.Remove(_currentInv[i]);
                 break;
@@ -74,7 +74,7 @@ public class Inventory : MonoBehaviour
 
     IEnumerator WaitForDestroy(GameObject _obj)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         Destroy(_obj);
     }
 

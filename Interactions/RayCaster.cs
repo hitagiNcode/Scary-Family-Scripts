@@ -186,6 +186,7 @@ public class RayCaster : MonoBehaviour
 
     public void SetPlayerhandEmpty()
     {
+        Inventory.instance.RemoveItem(handObj.GetGameObj());
         handObj = null;
         permissionToLift = true;
         playerAnimator.SetBool("HoldingItem", false);
