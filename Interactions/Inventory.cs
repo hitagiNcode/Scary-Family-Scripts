@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
         {
             instance = this;
         }
-        
+        CheckBoughtItems();
     }
 
 
@@ -85,6 +85,18 @@ public class Inventory : MonoBehaviour
         _obj.SetActive(true);
     }
 
+    public void CheckBoughtItems()
+    {
+        
+
+    }
+
+    private void AddFromShop(ShopItem _item, InteractableObj _script)
+    {
+
+        
+
+    }
    
 }
 
