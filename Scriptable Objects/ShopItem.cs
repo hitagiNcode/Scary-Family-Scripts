@@ -12,5 +12,5 @@ public class ShopItem : ScriptableObject
 
     public int price;
 
-    
+    public GameObject itemPrefab;
 }
