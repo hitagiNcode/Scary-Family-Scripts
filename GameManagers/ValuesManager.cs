@@ -50,6 +50,14 @@ public class ValuesManager : MonoBehaviour
 
     }
 
+    public void RemoveValue(string stringValue, int removeAmount)
+    {
+        int currentValue = PlayerPrefs.GetInt(stringValue, 0);
+
+        PlayerPrefs.SetInt(stringValue, currentValue - removeAmount);
+
+    }
+
     public void ResetGameProgress()
     {
         PlayerPrefs.DeleteAll();

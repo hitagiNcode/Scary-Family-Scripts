@@ -33,4 +33,9 @@ public class ItemManager : MonoBehaviour
     }
 
 
+    public void BuyItem(ShopItem _item)
+    {
+
+    }
+
 }

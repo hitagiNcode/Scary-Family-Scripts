@@ -15,4 +15,5 @@ MonoBehaviour:
   itemId: 7
   artWork: {fileID: 0}
   itemName: Bread
-  price: 0
+  price: 30
+  itemPrefab: {fileID: 0}

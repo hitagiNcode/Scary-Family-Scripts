@@ -76,9 +76,12 @@ public class ShopManager : MonoBehaviour
 
     public void OrderConfirmed()
     {
-        confirmPanel.SetActive(false);
+        
         //_currentItem  do something
         Debug.Log("You bought: " + _currentItem.name + " for "+_currentItem.price.ToString());
+        ValuesManager.Instance.RemoveValue("Gold", _currentItem.price);
+        ItemManager.Instance.BuyItem(_currentItem);
+        confirmPanel.SetActive(false);
     }
 
     public void ShopItemClicked(ShopItem itemData)
