@@ -22,6 +22,7 @@ public class ValuesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AddValue("Gold", 500);
         GetValue("Gold", goldText);
         GetValue("Diamond", diamondText);
         GetValue("Lives", livesText);
@@ -50,12 +51,13 @@ public class ValuesManager : MonoBehaviour
 
     }
 
+    //Function nname will be updated to RemoveValueGold
     public void RemoveValue(string stringValue, int removeAmount)
     {
         int currentValue = PlayerPrefs.GetInt(stringValue, 0);
 
         PlayerPrefs.SetInt(stringValue, currentValue - removeAmount);
-
+        GetValue(stringValue, goldText);
     }
 
     public void ResetGameProgress()

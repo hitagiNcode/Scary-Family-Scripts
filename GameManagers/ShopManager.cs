@@ -76,7 +76,6 @@ public class ShopManager : MonoBehaviour
 
     public void OrderConfirmed()
     {
-        
         //_currentItem  do something
         Debug.Log("You bought: " + _currentItem.name + " for "+_currentItem.price.ToString());
         ValuesManager.Instance.RemoveValue("Gold", _currentItem.price);

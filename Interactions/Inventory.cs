@@ -51,15 +51,6 @@ public class Inventory : MonoBehaviour
                 _currentInv.Remove(_currentInv[i]);
                 break;
             }
-                
-
-
-            /*if (_currentInv[i]._data.itemId == _item.itemId)
-            {
-                StartCoroutine(WaitForDestroy(_currentInv[i]._slotObj));
-                _currentInv.Remove(_currentInv[i]);
-                break;
-            }*/
         }
     }
 
@@ -85,17 +76,36 @@ public class Inventory : MonoBehaviour
         _obj.SetActive(true);
     }
 
+    //Checks bought items from shop only at the start of the game and adds it to inventory
+    //After inventory add removes item from boughtItems list
     public void CheckBoughtItems()
     {
+        List<BoughtItem> boughtItems = ItemManager.Instance._boughtItems;
+        for (int i = 0; i < boughtItems.Count; i++)
+        {
+            AddFromShop(boughtItems[i]._item);
+            ItemManager.Instance._boughtItems.RemoveAt(i);
+        }
         
-
     }
 
-    private void AddFromShop(ShopItem _item, InteractableObj _script)
+    //Special function for creating game items from prefabs that bought from shop
+    private void AddFromShop(ShopItem _item)
     {
-
-        
-
+        GameObject newObj = GameObject.Instantiate(itemPrefab, _inventoryGrid.transform);
+        GameObject _newItem = GameObject.Instantiate(_item.itemPrefab, RayCaster.instance.itemGuide.transform);
+        LiftableObjects _script = _newItem.GetComponent<LiftableObjects>();
+        _script.itemRigid.useGravity = false;
+        _script.itemRigid.isKinematic = true;
+        _newItem.transform.localPosition = _script.handPosition;
+        _newItem.transform.localEulerAngles = _script.handRotation;
+        _newItem.transform.localScale = _script.handScale;
+        _currentInv.Add(new InventoryItem(newObj, _item, _newItem));
+        InventoryItemDisplay objDisplay = newObj.GetComponent<InventoryItemDisplay>();
+        objDisplay._master = this;
+        objDisplay._data = _item;
+        objDisplay.SetDisplay(_script);
+        _newItem.SetActive(false);
     }
    
 }

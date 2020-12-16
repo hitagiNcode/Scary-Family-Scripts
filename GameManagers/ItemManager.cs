@@ -6,6 +6,7 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager Instance { get; private set; }
 
+    public List<BoughtItem> _boughtItems = new List<BoughtItem>();
 
     private void Awake()
     {
@@ -20,22 +21,21 @@ public class ItemManager : MonoBehaviour
         }
 
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public void BuyItem(ShopItem _item)
     {
+        _boughtItems.Add(new BoughtItem(_item));
+    }
 
+}
+
+public class BoughtItem
+{
+    public ShopItem _item;
+
+    public BoughtItem(ShopItem _data)
+    {
+        _item = _data;
     }
 
 }

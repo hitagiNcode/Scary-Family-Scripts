@@ -10,6 +10,8 @@ public class RayCaster : MonoBehaviour
 {
     public static RayCaster instance;
 
+    public GameObject itemGuide;
+
     //Will change it to find Getcomp in child and Animator Might also Compare tag to player body
     public Animator playerAnimator;
 
@@ -212,7 +214,7 @@ public class RayCaster : MonoBehaviour
         
         handObj = _obj;
     }
-
+    // add boolento stop if items are cuurently changing
     public IEnumerator BringUpInventoryItem(InteractableObj _obj)
     {
 

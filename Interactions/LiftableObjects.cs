@@ -19,6 +19,8 @@ public class LiftableObjects : InteractableObj
     //Hand rotation of the object
     public Vector3 handRotation;
 
+    public Vector3 handScale;
+
     private bool levitating;
     private int upForce = 11;
 
@@ -54,7 +56,7 @@ public class LiftableObjects : InteractableObj
         MainAudioManager.Instance.PlayPickUpAudio();
         itemRigid.useGravity = false;
         itemRigid.isKinematic = true;
-        itemSelf.transform.parent = itemGuide.transform;
+        itemSelf.transform.parent = RayCaster.instance.itemGuide.transform;
         itemSelf.transform.localPosition = handPosition;
         itemSelf.transform.localEulerAngles = handRotation;
         
@@ -80,7 +82,7 @@ public class LiftableObjects : InteractableObj
         itemSelf.transform.parent = null;
         itemRigid.isKinematic = false;
         itemRigid.useGravity = true;
-        itemRigid.AddForce(itemGuide.transform.forward * 200);
+        itemRigid.AddForce(RayCaster.instance.itemGuide.transform.forward * 200);
     }
 
     IEnumerator PickUpAnim()
