@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        
         if (instance == null)
         {
             instance = this;
@@ -38,6 +39,7 @@ public class Inventory : MonoBehaviour
             objDisplay._master = this;
             objDisplay._data = _item;
             objDisplay.SetDisplay(_script);
+            
     }
 
     public void RemoveItem(GameObject _obj)
@@ -49,6 +51,7 @@ public class Inventory : MonoBehaviour
                 
                 StartCoroutine(WaitForDestroy(_currentInv[i]._slotObj));
                 _currentInv.Remove(_currentInv[i]);
+                
                 break;
             }
         }

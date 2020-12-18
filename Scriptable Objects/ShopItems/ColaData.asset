@@ -16,3 +16,6 @@ MonoBehaviour:
   artWork: {fileID: 0}
   itemName: Cola
   price: 50
+  itemPrefab: {fileID: 717887057593766742, guid: 0d8dc4ccae49b3349b08739a62c30163,
+    type: 3}
+  handScale: {x: 0, y: 0, z: 0}

@@ -28,6 +28,8 @@ public class RayCaster : MonoBehaviour
 
     public bool handItemChanging = false;
 
+    public bool handItemPickingUp = false;
+
     //Privates
     //This boolean is for making the AimCursor color back to white only once
     private bool isClickAble;
@@ -145,9 +147,10 @@ public class RayCaster : MonoBehaviour
 
     public void ThrowButton()
     {
-        if (handObj != null && !handItemChanging)
+        if (handObj != null && !handItemChanging && !handItemPickingUp)
         {
             ThrowGameObject();
+            handObj = null;
         }
         else
         {

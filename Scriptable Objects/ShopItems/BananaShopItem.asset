@@ -16,3 +16,6 @@ MonoBehaviour:
   artWork: {fileID: 21300000, guid: 8ee8b14c291b85e4881b369a82b59d34, type: 3}
   itemName: Banana
   price: 80
+  itemPrefab: {fileID: 8076714721142114468, guid: 5edc2c8499cd048449dbf6945828886f,
+    type: 3}
+  handScale: {x: 0, y: 0, z: 0}

@@ -16,3 +16,6 @@ MonoBehaviour:
   artWork: {fileID: 0}
   itemName: Barbeque Stick
   price: 100
+  itemPrefab: {fileID: 8007116197146791552, guid: 7faf9991cffcdab438c0cffeb2fff312,
+    type: 3}
+  handScale: {x: 0, y: 0, z: 0}

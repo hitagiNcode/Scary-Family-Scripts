@@ -50,6 +50,7 @@ public class LiftableObjects : InteractableObj
 
     private void PickUp()
     {
+        Debug.Log("pick up");
         RayCaster.instance.playerAnimator.SetBool("HoldingItem", true);
         MainAudioManager.Instance.PlayPickUpAudio();
         itemRigid.useGravity = false;
@@ -57,7 +58,7 @@ public class LiftableObjects : InteractableObj
         itemSelf.transform.parent = RayCaster.instance.itemGuide.transform;
         itemSelf.transform.localPosition = handPosition;
         itemSelf.transform.localEulerAngles = handRotation;
-        
+        RayCaster.instance.handItemPickingUp = false;
     }
 
     void ThrowObj()
@@ -85,6 +86,7 @@ public class LiftableObjects : InteractableObj
 
     IEnumerator PickUpAnim()
     {
+        RayCaster.instance.handItemPickingUp = true;
         itemSelf.GetComponent<BoxCollider>().enabled = false;
         levitating = true;
         

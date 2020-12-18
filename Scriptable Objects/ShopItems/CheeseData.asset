@@ -15,4 +15,6 @@ MonoBehaviour:
   itemId: 8
   artWork: {fileID: 0}
   itemName: Cheese
-  price: 0
+  price: 40
+  itemPrefab: {fileID: 0}
+  handScale: {x: 0, y: 0, z: 0}
