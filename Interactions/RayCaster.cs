@@ -23,8 +23,10 @@ public class RayCaster : MonoBehaviour
     
     public Button interactButton;
 
-
+    // This boolean gives permission if there are less than 3 items in inventory
     public bool permissionToLift = true;
+
+    public bool handItemChanging = false;
 
     //Privates
     //This boolean is for making the AimCursor color back to white only once
@@ -143,11 +145,15 @@ public class RayCaster : MonoBehaviour
 
     public void ThrowButton()
     {
-        if (handObj != null)
+        if (handObj != null && !handItemChanging)
         {
             ThrowGameObject();
         }
-        handObj = null;
+        else
+        {
+            handObj = null;
+        }
+        
         
     }
 
@@ -202,6 +208,13 @@ public class RayCaster : MonoBehaviour
         
     }
 
+    public void ChangeItemFromIcon(InteractableObj _obj)
+    {
+        if (!handItemChanging)
+        {
+            StartCoroutine(WaitForItemChange(_obj));
+        }
+    }
 
     public IEnumerator WaitForItemChange(InteractableObj _obj)
     {
@@ -214,14 +227,23 @@ public class RayCaster : MonoBehaviour
         
         handObj = _obj;
     }
-    // add boolento stop if items are cuurently changing
+
+    public void ChangeHandItemFromIconEmptyHand(InteractableObj _obj)
+    {
+        if (!handItemChanging)
+        {
+            StartCoroutine(BringUpInventoryItem(_obj));
+        }
+    }
+    
     public IEnumerator BringUpInventoryItem(InteractableObj _obj)
     {
-
+        handItemChanging = true;
         playerAnimator.SetBool("HoldingItem", false);
         yield return new WaitForSeconds(1f);
         playerAnimator.SetBool("HoldingItem", true);
         _obj.GetGameObj().SetActive(true);
         handObj = _obj;
+        handItemChanging = false;
     }
 }

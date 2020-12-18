@@ -55,12 +55,6 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public void ChangeHoldingItem(InteractableObj _obj)
-    {
-
-        StartCoroutine(RayCaster.instance.WaitForItemChange(_obj));
-        
-    }
 
 
     IEnumerator WaitForDestroy(GameObject _obj)
@@ -99,7 +93,7 @@ public class Inventory : MonoBehaviour
         _script.itemRigid.isKinematic = true;
         _newItem.transform.localPosition = _script.handPosition;
         _newItem.transform.localEulerAngles = _script.handRotation;
-        _newItem.transform.localScale = _script.handScale;
+        _newItem.transform.localScale = _item.handScale;
         _currentInv.Add(new InventoryItem(newObj, _item, _newItem));
         InventoryItemDisplay objDisplay = newObj.GetComponent<InventoryItemDisplay>();
         objDisplay._master = this;

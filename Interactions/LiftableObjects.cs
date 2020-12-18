@@ -19,8 +19,6 @@ public class LiftableObjects : InteractableObj
     //Hand rotation of the object
     public Vector3 handRotation;
 
-    public Vector3 handScale;
-
     private bool levitating;
     private int upForce = 11;
 

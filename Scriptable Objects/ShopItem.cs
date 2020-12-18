@@ -13,4 +13,6 @@ public class ShopItem : ScriptableObject
     public int price;
 
     public GameObject itemPrefab;
+
+    public Vector3 handScale;
 }
