@@ -16,3 +16,6 @@ MonoBehaviour:
   artWork: {fileID: 0}
   itemName: Bucket
   price: 90
+  itemPrefab: {fileID: 4159641006131461310, guid: e39266a8013948c4387ca7521a6a3b33,
+    type: 3}
+  handScale: {x: 0, y: 0, z: 0}
