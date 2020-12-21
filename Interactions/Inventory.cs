@@ -92,6 +92,7 @@ public class Inventory : MonoBehaviour
         GameObject newObj = GameObject.Instantiate(itemPrefab, _inventoryGrid.transform);
         GameObject _newItem = GameObject.Instantiate(_item.itemPrefab, RayCaster.instance.itemGuide.transform);
         LiftableObjects _script = _newItem.GetComponent<LiftableObjects>();
+        _script.GetObjScripts();
         _script.itemRigid.useGravity = false;
         _script.itemRigid.isKinematic = true;
         _newItem.transform.localPosition = _script.handPosition;

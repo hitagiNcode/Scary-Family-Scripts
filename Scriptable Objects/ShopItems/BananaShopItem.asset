@@ -18,4 +18,4 @@ MonoBehaviour:
   price: 80
   itemPrefab: {fileID: 8076714721142114468, guid: 5edc2c8499cd048449dbf6945828886f,
     type: 3}
-  handScale: {x: 0, y: 0, z: 0}
+  handScale: {x: 45, y: 45, z: 45}
