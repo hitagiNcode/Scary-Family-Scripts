@@ -27,6 +27,21 @@ public class ItemManager : MonoBehaviour
         _boughtItems.Add(new BoughtItem(_item));
     }
 
+    public bool IsthereEmptySlot()
+    {
+        if (_boughtItems.Count >= 3)
+        {
+            
+            return false;
+            
+        }
+        else
+        {
+            
+            return true;
+        }
+    }
+
 }
 
 public class BoughtItem

@@ -23,12 +23,19 @@ public class ShopConfirmation : MonoBehaviour
 
         nameText.text = _data.itemName;
 
-        if (PlayerPrefs.GetInt("Gold", 0) < _data.price) 
+        if (PlayerPrefs.GetInt("Gold", 0) < _data.price ) 
         {
+            
+            _button.interactable = false;
+        }
+        else if (!ItemManager.Instance.IsthereEmptySlot())
+        {
+
             _button.interactable = false;
         }
         else
         {
+            
             _button.interactable = true;
         }
         
