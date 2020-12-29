@@ -5,16 +5,13 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    //Holding more items than 1 is gonna continue after i developed game more
-   
+    
     public static Inventory instance;
-
+    //Put your GridLayout Group here so it can add InventorySlot Prefab
     public GridLayoutGroup _inventoryGrid;
-
+    //Prefab of InventorySlot
     public GameObject itemPrefab;
-
-    //public ShopItem[] currentInventory = new ShopItem[3];
-
+    //A list of current inventory items 
     public List<InventoryItem> _currentInv = new List<InventoryItem>();
 
 
@@ -28,7 +25,7 @@ public class Inventory : MonoBehaviour
         CheckBoughtItems();
     }
 
-
+    //Mostly called from Raycaster after interact button clicked
     public void AddItem(ShopItem _item, InteractableObj _script)
     {
        
@@ -42,6 +39,7 @@ public class Inventory : MonoBehaviour
             
     }
 
+    //Also gets called from Raycaster when throw button is clicked
     public void RemoveItem(GameObject _obj)
     {
         for (int i = 0; i < _currentInv.Count; i++)
@@ -56,33 +54,40 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-
-
-
-
+    //I need to wait for animations before I destroy the Inventory slot prefab- I will use object pooling soon
     IEnumerator WaitForDestroy(GameObject _obj)
     {
         yield return new WaitForSeconds(0.3f);
         Destroy(_obj);
     }
-
+    //Waiting for animation before setting game object active
     IEnumerator WaitForHold(GameObject _obj)
     {
         _obj.SetActive(false);
         yield return new WaitForSeconds(1f);
         _obj.SetActive(true);
     }
+    //Clears after 3 seconds if player clicked wrong quest can have time not to loose items.
+    IEnumerator ClearTheShopList()
+    {
+        yield return new WaitForSeconds(4f);
+        ItemManager.Instance._boughtItems.Clear();
+    }
 
     //Checks bought items from shop only at the start of the game and adds it to inventory
-    //After inventory add removes item from boughtItems list
+    //After check all bought items clears the list
     public void CheckBoughtItems()
     {
         List<BoughtItem> boughtItems = ItemManager.Instance._boughtItems;
         for (int i = 0; i < boughtItems.Count; i++)
         {
+            
             AddFromShop(boughtItems[i]._item);
-            ItemManager.Instance._boughtItems.RemoveAt(i);
+
+          
         }
+
+        StartCoroutine(ClearTheShopList());
         
     }
 
@@ -105,6 +110,8 @@ public class Inventory : MonoBehaviour
         objDisplay.SetDisplay(_script);
         _newItem.SetActive(false);
     }
+
+    
    
 }
 

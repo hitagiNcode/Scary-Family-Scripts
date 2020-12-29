@@ -21,12 +21,13 @@ public class ItemManager : MonoBehaviour
         }
 
     }
-
+    
     public void BuyItem(ShopItem _item)
     {
         _boughtItems.Add(new BoughtItem(_item));
     }
 
+    //If player is trying to buy more than 3 items. Buy button becomes unclickable.
     public bool IsthereEmptySlot()
     {
         if (_boughtItems.Count >= 3)
