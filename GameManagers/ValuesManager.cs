@@ -22,7 +22,7 @@ public class ValuesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AddValue("Gold", 500);
+       
         GetValue("Gold", goldText);
         GetValue("Diamond", diamondText);
         GetValue("Lives", livesText);
