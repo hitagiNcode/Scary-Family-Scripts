@@ -68,4 +68,10 @@ public class ValuesManager : MonoBehaviour
         GetValue("Lives", livesText);
     }
 
+
+    public void RateButtonGetGold()
+    {
+        AddValue("Gold", 100);
+    }
+
 }

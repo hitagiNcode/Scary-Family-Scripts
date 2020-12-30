@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class ShopItemDisplay : MonoBehaviour
 {
@@ -20,7 +21,13 @@ public class ShopItemDisplay : MonoBehaviour
     private MultiImageButton _button;
     public void SetDisplay()
     {
-        itemImg.sprite = _data.artWork;
+        Texture2D tex = AssetPreview.GetAssetPreview(_data.itemPrefab);
+
+        Sprite mySprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+        _data.artWork = mySprite;
+
+        itemImg.sprite = mySprite;
 
         priceText.text = _data.price.ToString();
         SetButtonValues();
