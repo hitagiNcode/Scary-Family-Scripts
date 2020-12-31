@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BreadData
   m_EditorClassIdentifier: 
   itemId: 7
-  artWork: {fileID: 0}
+  artWork: {fileID: 21300000, guid: 2741d184c9aea4443b64e14ccd7da25d, type: 3}
   itemName: Bread
   price: 30
   itemPrefab: {fileID: 0}
+  handScale: {x: 0, y: 0, z: 0}

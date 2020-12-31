@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CleaningProduct
   m_EditorClassIdentifier: 
   itemId: 12
-  artWork: {fileID: 21300000, guid: a20e20ba95e68f44db69f593e781f17f, type: 3}
+  artWork: {fileID: 21300000, guid: 2741d184c9aea4443b64e14ccd7da25d, type: 3}
   itemName: Bleach
   price: 35
+  itemPrefab: {fileID: 0}
+  handScale: {x: 0, y: 0, z: 0}

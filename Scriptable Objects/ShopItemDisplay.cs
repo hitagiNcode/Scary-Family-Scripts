@@ -21,13 +21,8 @@ public class ShopItemDisplay : MonoBehaviour
     private MultiImageButton _button;
     public void SetDisplay()
     {
-        Texture2D tex = AssetPreview.GetAssetPreview(_data.itemPrefab);
 
-        Sprite mySprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
-
-        _data.artWork = mySprite;
-
-        itemImg.sprite = mySprite;
+        itemImg.sprite = _data.artWork;
 
         priceText.text = _data.price.ToString();
         SetButtonValues();

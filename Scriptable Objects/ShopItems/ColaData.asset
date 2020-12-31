@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ColaData
   m_EditorClassIdentifier: 
   itemId: 4
-  artWork: {fileID: 0}
+  artWork: {fileID: 21300000, guid: bfed3f3770fbebb4b9b15996cde77d5e, type: 3}
   itemName: Cola
   price: 50
   itemPrefab: {fileID: 7055314463646857344, guid: 94090029b92f39a499f3a715cf03c2e1,

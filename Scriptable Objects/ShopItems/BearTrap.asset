@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: BearTrap
   m_EditorClassIdentifier: 
   itemId: 14
-  artWork: {fileID: 0}
+  artWork: {fileID: 21300000, guid: 6a8f40a9b0fd9094ba78b5c7093e8227, type: 3}
   itemName: Bear Trap
   price: 150
+  itemPrefab: {fileID: 0}
+  handScale: {x: 0, y: 0, z: 0}

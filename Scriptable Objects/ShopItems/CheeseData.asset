@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CheeseData
   m_EditorClassIdentifier: 
   itemId: 8
-  artWork: {fileID: 0}
+  artWork: {fileID: 21300000, guid: 8a08b9446b9d238468bf556c761f982c, type: 3}
   itemName: Cheese
   price: 40
   itemPrefab: {fileID: 0}

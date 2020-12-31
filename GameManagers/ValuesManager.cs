@@ -48,7 +48,7 @@ public class ValuesManager : MonoBehaviour
         int currentValue = PlayerPrefs.GetInt(stringValue, 0);
 
         PlayerPrefs.SetInt(stringValue, currentValue + addAmount);
-
+       
     }
 
     //Function nname will be updated to RemoveValueGold
@@ -72,6 +72,7 @@ public class ValuesManager : MonoBehaviour
     public void RateButtonGetGold()
     {
         AddValue("Gold", 100);
+        GetValue("Gold", goldText);
     }
 
 }
