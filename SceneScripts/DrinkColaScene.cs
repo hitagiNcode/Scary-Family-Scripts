@@ -15,7 +15,6 @@ public class DrinkColaScene : MonoBehaviour
     public Transform oldManHand;
     public AudioClip pourClip;
 
-
     [HideInInspector]
     public bool drinkIsReady = false;
     private bool holdCola = false;

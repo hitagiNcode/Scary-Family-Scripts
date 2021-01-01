@@ -10,7 +10,7 @@ public class ValuesManager : MonoBehaviour
 
     public Text goldText;
     public Text diamondText;
-    public Text livesText;
+    public Text starsText;
     private void Awake()
     {
         if (Instance == null)
@@ -25,7 +25,7 @@ public class ValuesManager : MonoBehaviour
        
         GetValue("Gold", goldText);
         GetValue("Diamond", diamondText);
-        GetValue("Lives", livesText);
+        GetValue("Stars", starsText);
         
     }
 
@@ -51,6 +51,13 @@ public class ValuesManager : MonoBehaviour
        
     }
 
+    public void AddOneStar()
+    {
+        int currentValue = PlayerPrefs.GetInt("Stars", 0);
+        PlayerPrefs.SetInt("Stars", currentValue + 1);
+        GetValue("Stars", starsText);
+    }
+
     //Function nname will be updated to RemoveValueGold
     public void RemoveValue(string stringValue, int removeAmount)
     {
@@ -65,7 +72,7 @@ public class ValuesManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         GetValue("Gold", goldText);
         GetValue("Diamond", diamondText);
-        GetValue("Lives", livesText);
+        GetValue("Stars", starsText);
     }
 
 
