@@ -33,12 +33,8 @@ public class CreateSprites : MonoBehaviour
         Texture2D tex = AssetPreview.GetAssetPreview(_data);
         File.WriteAllBytes(fileName, tex.EncodeToPNG());
 
-
         //ShopItem data;
         //data.artWork = astPath
-
-
-
         /*
         Sprite mySprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
         _data.artWork = mySprite;

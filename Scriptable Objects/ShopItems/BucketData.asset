@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BucketData
   m_EditorClassIdentifier: 
   itemId: 15
-  artWork: {fileID: 21300000, guid: b44995b587ba3034199f65fabcfbe0d6, type: 3}
+  artWork: {fileID: 21300000, guid: 4a015b042e292f94ead91b6e162c99b9, type: 3}
   itemName: Bucket
   price: 90
   itemPrefab: {fileID: 4159641006131461310, guid: e39266a8013948c4387ca7521a6a3b33,
     type: 3}
-  handScale: {x: 0, y: 0, z: 0}
+  handScale: {x: 45, y: 45, z: 45}
