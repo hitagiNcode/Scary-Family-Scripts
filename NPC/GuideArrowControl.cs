@@ -8,6 +8,7 @@ public class GuideArrowControl : MonoBehaviour
     private UnityEngine.AI.NavMeshAgent agent;
 
 
+
     // I need to make agent turn to the way not go to there
 
     // And need to reverse the head of arrow
@@ -17,6 +18,7 @@ public class GuideArrowControl : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 
         //agent.updatePosition = false;
+        
     }
 
     private void FixedUpdate()
@@ -24,8 +26,20 @@ public class GuideArrowControl : MonoBehaviour
         if (target != null)
         {
             agent.SetDestination(target.position);
+
             
         }
+
+        if (!agent.pathPending && target != null)
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+            
+                target = null;
+                Debug.Log("path reached is true");
+            }
+        }
+
     }
 
 
@@ -33,4 +47,7 @@ public class GuideArrowControl : MonoBehaviour
     {
         target = _target;
     }
+
+
+
 }

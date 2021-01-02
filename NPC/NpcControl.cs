@@ -118,7 +118,7 @@ public class NpcControl : MonoBehaviour
                 playerController.enabled = false;
                 player.GetComponent<CharacterController>().enabled = false;
                 
-                Debug.Log("de activating movement of player");
+                
                 playerScripts = false;
             }
             
