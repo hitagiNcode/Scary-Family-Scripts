@@ -77,4 +77,10 @@ public class PauseMenuReal : MonoBehaviour
     {
         LevelLoader.Instance.LoadMainMenu();
     }
+
+
+    public void AskForWatchAds()
+    {
+
+    }
 }

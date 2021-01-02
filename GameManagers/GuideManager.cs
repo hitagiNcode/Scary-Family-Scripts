@@ -6,9 +6,9 @@ public class GuideManager : MonoBehaviour
 {
     public static GuideManager Instance { get; private set; }
 
-    public GameObject guideArrowObj;
+    string colaSceneUrl = "https://www.facebook.com/punipunistudio" ;
 
-    public GameObject ColaSceneObject;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +18,7 @@ public class GuideManager : MonoBehaviour
             Instance = this;
         }
 
-        //guideArrowObj.SetActive(false);
-
+       
 
     }
 
@@ -28,12 +27,13 @@ public class GuideManager : MonoBehaviour
     {
         if (DoPlayerHaveStar())
         {
-            guideArrowObj.SetActive(true);
-            guideArrowObj.GetComponent<GuideArrowControl>().GuideToObj(SceneObject().transform);
+            Application.OpenURL(SceneUrl());
         }
         else
         {
-            Debug.Log("Ask If the player want to watch AD to get a star.");
+            //Ask If the player want to watch AD to get a star.
+            PauseMenuReal.Instance.Pause();
+            PauseMenuReal.Instance.AskForWatchAds();
         }
         
     }
@@ -52,15 +52,15 @@ public class GuideManager : MonoBehaviour
     }
 
 
-    GameObject SceneObject()
+    string SceneUrl()
     {
         if (LevelLoader.Instance.selectedCutScene == LevelLoader.CutScene.DrinkCola)
         {
-            return ColaSceneObject;
+            return colaSceneUrl;
         }
         else
         {
-            return null;
+            return "https://instagram.com/punipuni.studio";
         }
         
     }
