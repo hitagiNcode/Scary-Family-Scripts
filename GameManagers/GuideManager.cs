@@ -27,6 +27,8 @@ public class GuideManager : MonoBehaviour
     {
         if (DoPlayerHaveStar())
         {
+            PauseMenuReal.Instance.Pause();
+            RemoveOneStar();
             Application.OpenURL(SceneUrl());
         }
         else
@@ -63,5 +65,11 @@ public class GuideManager : MonoBehaviour
             return "https://instagram.com/punipuni.studio";
         }
         
+    }
+
+    public void RemoveOneStar()
+    {
+        int currentValue = PlayerPrefs.GetInt("Stars", 0);
+        PlayerPrefs.SetInt("Stars", currentValue - 1);
     }
 }

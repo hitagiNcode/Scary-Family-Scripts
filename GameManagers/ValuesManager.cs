@@ -58,6 +58,12 @@ public class ValuesManager : MonoBehaviour
         GetValue("Stars", starsText);
     }
 
+    public void RemoveOneStar()
+    {
+        int currentValue = PlayerPrefs.GetInt("Stars", 0);
+        PlayerPrefs.SetInt("Stars", currentValue -1);
+    }
+
     //Function nname will be updated to RemoveValueGold
     public void RemoveValue(string stringValue, int removeAmount)
     {
